@@ -16,8 +16,10 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string nameFilter, char genderfilter)
+        public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
+
+
 
             // Lijst van alle studenten in de database
 
@@ -27,10 +29,10 @@ namespace StudentenBeheer.Controllers
 
             // filter op genders
 
-            if (genderfilter != 0)
+            if (genderFilter != 0)
             {
                 Students = from s in _context.Student
-                           where s.GenderId == genderfilter
+                           where s.GenderId == genderFilter
                            select s;
             }
 
@@ -44,8 +46,14 @@ namespace StudentenBeheer.Controllers
                            select s;
             }
 
+            
+            var studentenBeheerContext = _context.Student.Include(s => s.Gender);
+
+
 
             return View(await Students.ToListAsync());
+
+
         }
 
         // GET: Students/Details/5

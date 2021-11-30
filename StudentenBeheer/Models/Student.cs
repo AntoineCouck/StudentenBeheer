@@ -21,10 +21,6 @@ namespace StudentenBeheer.Models
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
-        //[Display(Name = "Geslacht")]
-        //public string Gender { get; set; }
-
-
         [ForeignKey("Gender")]
         public char GenderId { get; set; }
 
