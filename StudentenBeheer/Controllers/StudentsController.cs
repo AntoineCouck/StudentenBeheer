@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Data;
@@ -20,10 +16,10 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string nameFilter , int selectedGender)
+        public async Task<IActionResult> Index(string nameFilter, int genderFilter, string orderBy)
         {
-           
-            
+
+
 
             // Lijst van alle studenten in de database
 
@@ -33,10 +29,10 @@ namespace StudentenBeheer.Controllers
 
             // filter op genders
 
-            if(selectedGender != 0)
+            if (genderFilter != 0)
             {
                 Students = from s in _context.Student
-                           where s.GenderId == selectedGender
+                           where s.GenderId == genderFilter
                            select s;
             }
 
@@ -46,24 +42,55 @@ namespace StudentenBeheer.Controllers
             {
                 Students = from s in _context.Student
                            where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
-                           orderby s.Lastname , s.Name
+                           orderby s.Lastname, s.Name
                            select s;
             }
 
+            //ViewData["NameField"] = string.IsNullOrEmpty(orderBy) ? "Titles_Desc" : "";
+            //ViewData["GenderField"] = orderBy == "Group" ? "Group_Desc" : "Group";
+            
+            //switch (orderBy)
+            //{
+            //    case "Name":
+            //        Students = filteredMessages.OrderBy();
+            //        break;
+            //    case "LastName":
+            //        Students = filteredMessages.OrderByDescending();
+            //        break;
+            //    case "Titles_Desc":
+            //        Students = filteredMessages.OrderByDescending();
+            //        break;
+
+            //    case: Students
+
+            //            break;
+
+            //    case: Students
+
+            //            break;
+            //    default:
+            //        Students = filteredMessages.OrderBy();
+            //        break;
+            //}
 
             var studentenBeheerContext = _context.Student.Include(s => s.Gender);
+
+            // Lijst van groepen 
+            IQueryable<Student> StudentsToSelect = from s in _context.Student orderby s.Name select s;
 
             StudentsIndexViewModel studentsIndexViewModel = new StudentsIndexViewModel()
             {
                 FirstNameFilter = nameFilter,
                 LastNameFilter = nameFilter,
-                GenderFilter = selectedGender,
-                FilteredStudents = await Students.ToListAsync(),
-                SelectedStudent = new StudentsIndexViewModel().SelectedStudent
+                GenderFilter = genderFilter,
+                FilteredStudents = await Students.Include(s => s.Gender).ToListAsync(),
+                //SelectedStudent = new SelectList(await StudentsToSelect.ToListAsync(), "Name" , "LastName" , genderFilter )
             };
 
+           
 
-            return View(await Students.ToListAsync());
+
+            return View(studentsIndexViewModel);
         }
 
         // GET: Students/Details/5

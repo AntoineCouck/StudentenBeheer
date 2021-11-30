@@ -11,11 +11,11 @@
 </p>
 <p>
     <form asp-controller="Students" asp-action="Index" method="get">
-        <small>Search Name or lastname </small> <input type="text" name="nameFilter" asp-for="nameFilter"/>
+        <small>Search Name or lastname </small> <input type="text" name="nameFilter"@* asp-for="nameFilter"*@/>
         &nbsp;
-         <small>Group:</small> <select asp-for="Selected_gender" asp-items="Model.GenderToSelect">
-            <option value="0">Male</option>
-            <option value="1">Female</option>
+         <small>Group:</small> <select @*asp-for="genderFilter" asp-items="Model.SelectedGender"*@>
+            <option value="1">Male</option>
+            <option value="2">Female</option>
         </select>
         &nbsp;
         <input type="submit" value="Filter" />

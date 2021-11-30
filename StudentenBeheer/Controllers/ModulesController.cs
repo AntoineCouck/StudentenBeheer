@@ -1,89 +1,94 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
-    public class GendersController : Controller
+    public class ModulesController : Controller
     {
         private readonly StudentenBeheerContext _context;
 
-        public GendersController(StudentenBeheerContext context)
+        public ModulesController(StudentenBeheerContext context)
         {
             _context = context;
         }
 
-        // GET: Genders
+        // GET: Modules
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Gender.ToListAsync());
+            return View(await _context.Module.ToListAsync());
         }
 
-        // GET: Genders/Details/5
-        public async Task<IActionResult> Details(char? id)
+        // GET: Modules/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var gender = await _context.Gender
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (gender == null)
+            var @module = await _context.Module
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (@module == null)
             {
                 return NotFound();
             }
 
-            return View(gender);
+            return View(@module);
         }
 
-        // GET: Genders/Create
+        // GET: Modules/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Genders/Create
+        // POST: Modules/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] Gender gender)
+        public async Task<IActionResult> Create([Bind("Id,Name,Omschrijving")] Module @module)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gender);
+                _context.Add(@module);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+            return View(@module);
         }
 
-        // GET: Genders/Edit/5
-        public async Task<IActionResult> Edit(char? id)
+        // GET: Modules/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var gender = await _context.Gender.FindAsync(id);
-            if (gender == null)
+            var @module = await _context.Module.FindAsync(id);
+            if (@module == null)
             {
                 return NotFound();
             }
-            return View(gender);
+            return View(@module);
         }
 
-        // POST: Genders/Edit/5
+        // POST: Modules/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(char id, [Bind("ID,Name")] Gender gender)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Omschrijving")] Module @module)
         {
-            if (id != gender.ID)
+            if (id != @module.Id)
             {
                 return NotFound();
             }
@@ -92,12 +97,12 @@ namespace StudentenBeheer.Controllers
             {
                 try
                 {
-                    _context.Update(gender);
+                    _context.Update(@module);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenderExists(gender.ID))
+                    if (!ModuleExists(@module.Id))
                     {
                         return NotFound();
                     }
@@ -108,41 +113,41 @@ namespace StudentenBeheer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+            return View(@module);
         }
 
-        // GET: Genders/Delete/5
-        public async Task<IActionResult> Delete(char? id)
+        // GET: Modules/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var gender = await _context.Gender
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (gender == null)
+            var @module = await _context.Module
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (@module == null)
             {
                 return NotFound();
             }
 
-            return View(gender);
+            return View(@module);
         }
 
-        // POST: Genders/Delete/5
+        // POST: Modules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(char id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var gender = await _context.Gender.FindAsync(id);
-            _context.Gender.Remove(gender);
+            var @module = await _context.Module.FindAsync(id);
+            _context.Module.Remove(@module);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GenderExists(char id)
+        private bool ModuleExists(int id)
         {
-            return _context.Gender.Any(e => e.ID == id);
+            return _context.Module.Any(e => e.Id == id);
         }
     }
 }

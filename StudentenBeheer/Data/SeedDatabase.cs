@@ -3,23 +3,23 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Data
 {
- 
-        public static class SeedDatabase
+
+    public static class SeedDatabase
+    {
+
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-
-            public static void Initialize(IServiceProvider serviceProvider)
+            using (var context = new StudentenBeheerContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<StudentenBeheerContext>>()))
             {
-                using (var context = new StudentenBeheerContext(
-                    serviceProvider.GetRequiredService<
-                        DbContextOptions<StudentenBeheerContext>>()))
-                {
-              
-                if ( context.Gender.Any() || context.Student.Any())
-                    {
-                        return;   // DB has been seeded
-                    }
 
-               
+                if (context.Gender.Any() || context.Student.Any())
+                {
+                    return;   // DB has been seeded
+                }
+
+
                 context.Gender.AddRange(
 
                          new Gender
@@ -34,7 +34,7 @@ namespace StudentenBeheer.Data
                          new Gender
                          {
 
-                             ID = 'F', 
+                             ID = 'F',
                              Name = "Female"
 
 
@@ -48,12 +48,12 @@ namespace StudentenBeheer.Data
                            new Student
                            {
                                Name = "antoine",
-                               Lastname = "Couck", 
+                               Lastname = "Couck",
                                Birthday = DateTime.Now,
                                GenderId = 'M'
 
-                            
-                           } , 
+
+                           },
                            new Student
                            {
                                Name = "antoine2",
@@ -64,12 +64,12 @@ namespace StudentenBeheer.Data
 
                            }
                     );
-                    context.SaveChanges();
+                context.SaveChanges();
 
-                  
-                }
+
             }
         }
-
     }
+
+}
 

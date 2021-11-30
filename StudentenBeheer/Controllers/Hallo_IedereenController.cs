@@ -9,7 +9,7 @@ namespace StudentenBeheer.Controllers
             return "Dit is de standaard pagina om iedereen welkom te heten";
         }
 
-        public string Welkom(string voornaam , string achternaam)
+        public string Welkom(string voornaam, string achternaam)
         {
             return " Welkom " + voornaam + " " + achternaam;
         }
