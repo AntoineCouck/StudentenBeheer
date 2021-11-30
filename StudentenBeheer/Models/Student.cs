@@ -31,18 +31,5 @@ namespace StudentenBeheer.Models
         public Gender? Gender { get; set; }
     }
 
-    public class StudentsIndexViewModel
-    {
-        public int SelectedStudent { get; set; }
-        public string FirstNameFilter { get; set; }
-
-        public string LastNameFilter { get; set; }
-
-        public int GenderFilter { get; set; }
-
-        public List<Student> FilteredStudents { get; set; }
-
-        public SelectList SelectedGender { get; set; }
-
-    }
+  
 }

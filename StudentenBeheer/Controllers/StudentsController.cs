@@ -16,10 +16,8 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string nameFilter, int genderFilter, string orderBy)
+        public async Task<IActionResult> Index(string nameFilter, char genderfilter)
         {
-
-
 
             // Lijst van alle studenten in de database
 
@@ -29,10 +27,10 @@ namespace StudentenBeheer.Controllers
 
             // filter op genders
 
-            if (genderFilter != 0)
+            if (genderfilter != 0)
             {
                 Students = from s in _context.Student
-                           where s.GenderId == genderFilter
+                           where s.GenderId == genderfilter
                            select s;
             }
 
@@ -46,51 +44,8 @@ namespace StudentenBeheer.Controllers
                            select s;
             }
 
-            //ViewData["NameField"] = string.IsNullOrEmpty(orderBy) ? "Titles_Desc" : "";
-            //ViewData["GenderField"] = orderBy == "Group" ? "Group_Desc" : "Group";
-            
-            //switch (orderBy)
-            //{
-            //    case "Name":
-            //        Students = filteredMessages.OrderBy();
-            //        break;
-            //    case "LastName":
-            //        Students = filteredMessages.OrderByDescending();
-            //        break;
-            //    case "Titles_Desc":
-            //        Students = filteredMessages.OrderByDescending();
-            //        break;
 
-            //    case: Students
-
-            //            break;
-
-            //    case: Students
-
-            //            break;
-            //    default:
-            //        Students = filteredMessages.OrderBy();
-            //        break;
-            //}
-
-            var studentenBeheerContext = _context.Student.Include(s => s.Gender);
-
-            // Lijst van groepen 
-            IQueryable<Student> StudentsToSelect = from s in _context.Student orderby s.Name select s;
-
-            StudentsIndexViewModel studentsIndexViewModel = new StudentsIndexViewModel()
-            {
-                FirstNameFilter = nameFilter,
-                LastNameFilter = nameFilter,
-                GenderFilter = genderFilter,
-                FilteredStudents = await Students.Include(s => s.Gender).ToListAsync(),
-                //SelectedStudent = new SelectList(await StudentsToSelect.ToListAsync(), "Name" , "LastName" , genderFilter )
-            };
-
-           
-
-
-            return View(studentsIndexViewModel);
+            return View(await Students.ToListAsync());
         }
 
         // GET: Students/Details/5
