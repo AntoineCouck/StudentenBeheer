@@ -19,13 +19,13 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
 
-
+                  var studentenBeheerContext = _context.Student.Include(s => s.Gender);
 
             // Lijst van alle studenten in de database
 
             var Students = from s in _context.Student
                            select s;
-
+      
 
             // filter op genders
 
@@ -45,9 +45,6 @@ namespace StudentenBeheer.Controllers
                            orderby s.Lastname, s.Name
                            select s;
             }
-
-            
-            var studentenBeheerContext = _context.Student.Include(s => s.Gender);
 
 
 
