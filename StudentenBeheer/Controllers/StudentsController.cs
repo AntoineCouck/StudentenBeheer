@@ -20,10 +20,50 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string titleFilter, int selectedGroup, string orderBy)
+        public async Task<IActionResult> Index(string nameFilter , int selectedGender)
         {
+           
+            
+
+            // Lijst van alle studenten in de database
+
+            var Students = from s in _context.Student
+                           select s;
+
+
+            // filter op genders
+
+            if(selectedGender != 0)
+            {
+                Students = from s in _context.Student
+                           where s.GenderId == selectedGender
+                           select s;
+            }
+
+            // filter op voornaam en achternaam 
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                Students = from s in _context.Student
+                           where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
+                           orderby s.Lastname , s.Name
+                           select s;
+            }
+
+
             var studentenBeheerContext = _context.Student.Include(s => s.Gender);
-            return View(await studentenBeheerContext.ToListAsync());
+
+            StudentsIndexViewModel studentsIndexViewModel = new StudentsIndexViewModel()
+            {
+                FirstNameFilter = nameFilter,
+                LastNameFilter = nameFilter,
+                GenderFilter = selectedGender,
+                FilteredStudents = await Students.ToListAsync(),
+                SelectedStudent = new StudentsIndexViewModel().SelectedStudent
+            };
+
+
+            return View(await Students.ToListAsync());
         }
 
         // GET: Students/Details/5

@@ -10,10 +10,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 <p>
-    <form asp-controller="Messages" asp-action="Index" method="get">
-        <small>Search Name or lastname </small> <input type="text" name="titleFilter" @*asp-for="NameFilter"*@/>
+    <form asp-controller="Students" asp-action="Index" method="get">
+        <small>Search Name or lastname </small> <input type="text" name="nameFilter" asp-for="nameFilter"/>
         &nbsp;
-        Group: <select @*asp-for="Selected_gender" asp-items="Model.GenderToSelect"*@>
+         <small>Group:</small> <select asp-for="Selected_gender" asp-items="Model.GenderToSelect">
             <option value="0">Male</option>
             <option value="1">Female</option>
         </select>
@@ -25,16 +25,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name) 
+               <a> @Html.DisplayNameFor(model => model.Name)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lastname)
+                 <a>@Html.DisplayNameFor(model => model.Lastname)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Birthday)
+                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                 <a>@Html.DisplayNameFor(model => model.Gender)</a>
             </th>
             <th></th>
         </tr>

@@ -13,13 +13,13 @@ namespace StudentenBeheer.Data
                     serviceProvider.GetRequiredService<
                         DbContextOptions<StudentenBeheerContext>>()))
                 {
-                // Look for any movies.
-                if (context.Gender.Any() || context.Student.Any())
+              
+                if ( context.Gender.Any() || context.Student.Any())
                     {
                         return;   // DB has been seeded
                     }
 
-                //  TODO nog af te werken
+               
                 context.Gender.AddRange(
 
                          new Gender
