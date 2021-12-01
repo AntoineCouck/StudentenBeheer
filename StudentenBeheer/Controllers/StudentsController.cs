@@ -47,7 +47,7 @@ namespace StudentenBeheer.Controllers
             }
 
 
-
+            await studentenBeheerContext.ToListAsync();
             return View(await Students.ToListAsync());
 
 
