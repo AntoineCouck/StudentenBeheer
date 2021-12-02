@@ -19,36 +19,108 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
 
-                  var studentenBeheerContext = _context.Student.Include(s => s.Gender);
 
-            // Lijst van alle studenten in de database
 
-            var Students = from s in _context.Student
-                           select s;
-      
+            //// Lijst van alle studenten in de database
 
-            // filter op genders
+            //var Students = from s in _context.Student
+            //               select s;
+
+
+            //// filter op genders
+
+            //if (genderFilter != 0)
+            //{
+            //    Students = from s in _context.Student
+            //               where s.GenderId == genderFilter
+            //               select s;
+            //}
+
+            //// filter op voornaam en achternaam 
+
+            //if (!string.IsNullOrEmpty(nameFilter))
+            //{
+            //    Students = from s in Students
+            //               where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
+            //               orderby s.Lastname, s.Name
+            //               select s;
+            //}
+
+            //var studentenBeheerContext = _context.Student.Include(s => s.Gender);
+
+            //ViewData["genderId"] = new SelectList(_context.Gender.ToList() , "ID" , "Name");
+
+
+            //await studentenBeheerContext.ToListAsync();
+            //return View(await Students.ToListAsync());
+
+            // Lijst alle message op.  We gebruiken Linq
+            var filteredStudents = from m in _context.Student select m;
 
             if (genderFilter != 0)
             {
-                Students = from s in _context.Student
+                filteredStudents = from s in _context.Student
                            where s.GenderId == genderFilter
                            select s;
             }
 
-            // filter op voornaam en achternaam 
-
+    
             if (!string.IsNullOrEmpty(nameFilter))
             {
-                Students = from s in _context.Student
-                           where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
-                           orderby s.Lastname, s.Name
-                           select s;
+                filteredStudents = from s in filteredStudents
+                                   where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
+                                   orderby s.Lastname, s.Name
+                                   select s;
             }
 
+            // encore a faire
 
-            await studentenBeheerContext.ToListAsync();
-            return View(await Students.ToListAsync());
+            ViewData["TitleField"] = string.IsNullOrEmpty(orderBy) ? "Titles_Desc" : "";
+            ViewData["GroupField"] = orderBy == "Group" ? "Group_Desc" : "Group";
+
+            switch (orderBy)
+            {
+                case "LastName":
+                    filteredStudents = filteredStudents.OrderBy(m => m.Lastname);
+                    break;
+                case "LastName_Desc":
+                    filteredStudents = filteredStudents.OrderByDescending(m => m.Lastname);
+                    break;
+                case "Name_Desc":
+                    filteredStudents = filteredStudents.OrderByDescending(m => m.Name);
+                    break;
+                case "Name":
+                    filteredStudents = filteredStudents.OrderBy(m => m.Name);
+                    break;
+                case "Date":
+                    filteredStudents = filteredStudents.OrderBy(m => m.Birthday);
+                    break;
+                case "Date_Desc":
+                    filteredStudents = filteredStudents.OrderByDescending(m => m.Birthday);
+                    break;
+
+
+                default:
+                    filteredStudents = filteredStudents.OrderBy(m => m.Name);
+                    break;
+            }
+
+            // Lijst van groepen 
+            IQueryable<Student> groupsToSelect = from g in _context.Student orderby g.Name select g;
+
+            // Maak een object van de view-model-class en voeg daarin alle wat we nodig hebben
+
+            // encore a faire
+
+            StudentsIndexViewModel studentviewmodel = new StudentsIndexViewModel()
+            {
+                TitleFilter = titleFilter,
+                FilteredMessages = await filteredStudents.Include(s => s.Group).ToListAsync(),
+                SelectedGroup = selectedGroup,
+                GroupsToSelect = new SelectList(await groupsToSelect.ToListAsync(), "Id", "Name", selectedGroup)
+            };
+            
+            return View(studentviewmodel);
 
 
         }
