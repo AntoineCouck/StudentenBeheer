@@ -21,50 +21,17 @@ namespace StudentenBeheer.Controllers
 
 
 
-            //// Lijst van alle studenten in de database
-
-            //var Students = from s in _context.Student
-            //               select s;
-
-
-            //// filter op genders
-
-            //if (genderFilter != 0)
-            //{
-            //    Students = from s in _context.Student
-            //               where s.GenderId == genderFilter
-            //               select s;
-            //}
-
-            //// filter op voornaam en achternaam 
-
-            //if (!string.IsNullOrEmpty(nameFilter))
-            //{
-            //    Students = from s in Students
-            //               where s.Lastname.Contains(nameFilter) || s.Name.Contains(nameFilter)
-            //               orderby s.Lastname, s.Name
-            //               select s;
-            //}
-
-            //var studentenBeheerContext = _context.Student.Include(s => s.Gender);
-
-            //ViewData["genderId"] = new SelectList(_context.Gender.ToList() , "ID" , "Name");
-
-
-            //await studentenBeheerContext.ToListAsync();
-            //return View(await Students.ToListAsync());
-
             // Lijst alle message op.  We gebruiken Linq
             var filteredStudents = from m in _context.Student select m;
 
             if (genderFilter != 0)
             {
                 filteredStudents = from s in _context.Student
-                           where s.GenderId == genderFilter
-                           select s;
+                                   where s.GenderId == genderFilter
+                                   select s;
             }
 
-    
+
             if (!string.IsNullOrEmpty(nameFilter))
             {
                 filteredStudents = from s in filteredStudents
@@ -75,8 +42,10 @@ namespace StudentenBeheer.Controllers
 
             // encore a faire
 
-            ViewData["TitleField"] = string.IsNullOrEmpty(orderBy) ? "Titles_Desc" : "";
-            ViewData["GroupField"] = orderBy == "Group" ? "Group_Desc" : "Group";
+            ViewData["NameField"] = orderBy == "Name" ? "Name_Desc" : "Name";
+            ViewData["LastName"] = orderBy == "LastName" ? "LastName_Desc" : "Lastname";
+            ViewData["BirthDay"] = string.IsNullOrEmpty(orderBy) ? "Date_Desc" : "";
+            ViewData["genderId"] = new SelectList(_context.Gender.ToList(), "ID", "Name");
 
             switch (orderBy)
             {
@@ -101,7 +70,7 @@ namespace StudentenBeheer.Controllers
 
 
                 default:
-                    filteredStudents = filteredStudents.OrderBy(m => m.Name);
+                    filteredStudents = filteredStudents.OrderBy(m => m.Birthday);
                     break;
             }
 
@@ -114,12 +83,19 @@ namespace StudentenBeheer.Controllers
 
             StudentsIndexViewModel studentviewmodel = new StudentsIndexViewModel()
             {
-                TitleFilter = titleFilter,
-                FilteredMessages = await filteredStudents.Include(s => s.Group).ToListAsync(),
-                SelectedGroup = selectedGroup,
-                GroupsToSelect = new SelectList(await groupsToSelect.ToListAsync(), "Id", "Name", selectedGroup)
+                //TitleFilter = titleFilter,
+                //FilteredMessages = await filteredStudents.Include(s => s.Group).ToListAsync(),
+                //SelectedGroup = selectedGroup,
+                //GroupsToSelect = new SelectList(await groupsToSelect.ToListAsync(), "Id", "Name", selectedGroup)
+
+                NameFilter = nameFilter,
+                GenderFilter = genderFilter,
+                FilteredStudents = await filteredStudents.Include(s => s.Gender).ToListAsync(),
+                ListGenders = new SelectList(await groupsToSelect.ToListAsync(), "ID", "Name", genderFilter)
+
+
             };
-            
+
             return View(studentviewmodel);
 
 

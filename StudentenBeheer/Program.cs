@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using StudentenBeheer.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Areas.Identity.Data;
+using StudentenBeheer.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = (builder.Configuration.GetConnectionString("StudentenBeheerContext"));
@@ -10,12 +10,34 @@ builder.Services.AddDbContext<StudentenBeheerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudentenBeheerContext")));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<IdentityContext>();builder.Services.AddDbContext<IdentityContext>(options =>
-    options.UseSqlServer(connectionString));
+    .AddEntityFrameworkStores<IdentityContext>(); builder.Services.AddDbContext<IdentityContext>(options =>
+     options.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
 
+    // lockout settings
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings
+
+    options.User.RequireUniqueEmail = false;
+});
 var app = builder.Build();
+
+// password settings
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

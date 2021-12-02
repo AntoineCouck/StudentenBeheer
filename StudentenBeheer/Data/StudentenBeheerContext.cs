@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Data
 {
@@ -15,5 +14,7 @@ namespace StudentenBeheer.Data
         public DbSet<StudentenBeheer.Models.Gender> Gender { get; set; }
 
         public DbSet<StudentenBeheer.Models.Module> Module { get; set; }
+
+        public DbSet<StudentenBeheer.Models.Inschrijvingen> Inschrijvingen { get; set; }
     }
 }
