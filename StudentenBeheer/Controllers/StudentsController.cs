@@ -43,7 +43,7 @@ namespace StudentenBeheer.Controllers
             // encore a faire
 
             ViewData["NameField"] = orderBy == "Name" ? "Name_Desc" : "Name";
-            ViewData["LastName"] = orderBy == "LastName" ? "LastName_Desc" : "Lastname";
+            ViewData["LastName"] = orderBy == "Lastname" ? "LastName_Desc" : "Lastname";
             ViewData["BirthDay"] = string.IsNullOrEmpty(orderBy) ? "Date_Desc" : "";
             ViewData["genderId"] = new SelectList(_context.Gender.ToList(), "ID", "Name");
 
