@@ -25,6 +25,8 @@ namespace StudentenBeheer.Models
         public char GenderId { get; set; }
 
         public Gender? Gender { get; set; }
+
+        public DateTime ? Deleted { get; set; }
     }
 
     public class StudentsIndexViewModel
