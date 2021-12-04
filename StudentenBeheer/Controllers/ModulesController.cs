@@ -137,7 +137,7 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @module = await _context.Module.FindAsync(id);
-            _context.Module.Remove(@module);
+            module.Deleted = DateTime.Now;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

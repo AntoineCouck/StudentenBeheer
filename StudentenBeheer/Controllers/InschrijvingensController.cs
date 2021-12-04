@@ -48,8 +48,10 @@ namespace StudentenBeheer.Controllers
         // GET: Inschrijvingens/Create
         public IActionResult Create()
         {
-            ViewData["ModuleId"] = new SelectList(_context.Module, "Id", "Name");
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Lastname");
+            var student = _context.Student.Where(s => s.Deleted > DateTime.Now);
+            var module = _context.Module.Where(m => m.Deleted > DateTime.Now);
+            ViewData["ModuleId"] = new SelectList(module, "Id", "Name");
+            ViewData["StudentId"] = new SelectList(student, "Id", "Lastname");
             return View();
         }
 

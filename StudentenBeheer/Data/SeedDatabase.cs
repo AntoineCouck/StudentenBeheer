@@ -50,7 +50,8 @@ namespace StudentenBeheer.Data
                                Name = "antoine",
                                Lastname = "Couck",
                                Birthday = DateTime.Now,
-                               GenderId = 'M'
+                               GenderId = 'M',
+                               Deleted = DateTime.MaxValue
 
 
                            },
@@ -59,7 +60,8 @@ namespace StudentenBeheer.Data
                                Name = "antoine2",
                                Lastname = "Couck2",
                                Birthday = DateTime.Now,
-                               GenderId = 'F'
+                               GenderId = 'F',
+                               Deleted = DateTime.Now
 
 
                            }

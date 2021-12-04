@@ -19,6 +19,14 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
 
+            //TODO
+
+            //var mediaTypes = _context.MediaType
+            //                    .Where(m => m.Deleted > DateTime.Now)
+            //                    .OrderBy(m => m.Name);
+            //return View(await mediaTypes.ToListAsync());
+
+            //TODO
 
 
             // Lijst alle message op.  We gebruiken Linq
@@ -222,7 +230,7 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = await _context.Student.FindAsync(id);
-            _context.Student.Remove(student);
+            student.Deleted = DateTime.Now;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
