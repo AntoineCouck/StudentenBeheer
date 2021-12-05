@@ -32,13 +32,10 @@ namespace StudentenBeheer.Models
     public class StudentsIndexViewModel
     {
 
-
-        public string NameFilter { get; set; }
-
+        public string ? NameFilter { get; set; }
         public char GenderFilter { get; set; }
-
-        public List<Student> FilteredStudents { get; set; }
-        public SelectList ListGenders { get; set; }
+        public List<Student> ? FilteredStudents { get; set; }
+        public SelectList ? ListGenders { get; set; }
     }
 
 

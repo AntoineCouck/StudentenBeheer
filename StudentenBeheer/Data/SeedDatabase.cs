@@ -38,6 +38,12 @@ namespace StudentenBeheer.Data
                              Name = "Female"
 
 
+                         },
+
+                         new Gender
+                         {
+                             ID = 'X',
+                             Name = "Not set"
                          }
 
                      );
@@ -73,24 +79,25 @@ namespace StudentenBeheer.Data
                     new Module
                     {
                         Name = "Backend web",
-                        Omschrijving = "iets met web te maken, denk ik",
+                        Omschrijving = "Iets met web te maken, denk ik",
                         Deleted = DateTime.MaxValue
                     },
                      new Module
                      {
                          Name = "Dynamic web",
-                         Omschrijving = "iets met web te maken, denk ik maar met een rare taal",
+                         Omschrijving = "Iets met web te maken, denk ik maar met een rare taal",
                          Deleted = DateTime.Now
                      },
                       new Module
                       {
                           Name = "OS fundamentals",
-                          Omschrijving = "iets echt raar, precies chinees",
+                          Omschrijving = "Iets echt raar, precies chinees",
                           Deleted = DateTime.MaxValue
                       }
 
                     );
-                context.SaveChanges();
+                    
+                   context.SaveChanges();
 
             }
         }
