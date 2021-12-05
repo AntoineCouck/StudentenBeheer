@@ -68,6 +68,29 @@ namespace StudentenBeheer.Data
                     );
                 context.SaveChanges();
 
+                context.Module.AddRange(
+
+                    new Module
+                    {
+                        Name = "Backend web",
+                        Omschrijving = "iets met web te maken, denk ik",
+                        Deleted = DateTime.MaxValue
+                    },
+                     new Module
+                     {
+                         Name = "Dynamic web",
+                         Omschrijving = "iets met web te maken, denk ik maar met een rare taal",
+                         Deleted = DateTime.Now
+                     },
+                      new Module
+                      {
+                          Name = "OS fundamentals",
+                          Omschrijving = "iets echt raar, precies chinees",
+                          Deleted = DateTime.MaxValue
+                      }
+
+                    );
+                context.SaveChanges();
 
             }
         }

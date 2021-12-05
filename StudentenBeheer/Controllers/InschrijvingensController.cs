@@ -46,12 +46,35 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Inschrijvingens/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id , int? welke)
         {
             var student = _context.Student.Where(s => s.Deleted > DateTime.Now);
             var module = _context.Module.Where(m => m.Deleted > DateTime.Now);
             ViewData["ModuleId"] = new SelectList(module, "Id", "Name");
             ViewData["StudentId"] = new SelectList(student, "Id", "Lastname");
+
+            if(welke == 0)
+            {
+                // module
+
+                module = _context.Module.Where( m => m.Id == id);
+                ViewData["ModuleId"] = new SelectList(module, "Id", "Name");
+                ViewData["StudentId"] = new SelectList(student, "Id", "Lastname");
+
+            }
+
+            if (welke == 1)
+            {
+
+                //student
+
+                student = _context.Student.Where(m => m.Id == id);
+                ViewData["ModuleId"] = new SelectList(module, "Id", "Name");
+                ViewData["StudentId"] = new SelectList(student, "Id", "Lastname");
+
+            }
+
+
             return View();
         }
 

@@ -19,18 +19,10 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
 
-            //TODO
-
-            //var mediaTypes = _context.MediaType
-            //                    .Where(m => m.Deleted > DateTime.Now)
-            //                    .OrderBy(m => m.Name);
-            //return View(await mediaTypes.ToListAsync());
-
-            //TODO
-
-
-            // Lijst alle message op.  We gebruiken Linq
-            var filteredStudents = from m in _context.Student select m;
+            
+            var filteredStudents = from m in _context.Student
+                                   where m.Deleted > DateTime.Now
+                                   select m;
 
             if (genderFilter != 0)
             {

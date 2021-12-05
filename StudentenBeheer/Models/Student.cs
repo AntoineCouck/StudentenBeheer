@@ -26,7 +26,7 @@ namespace StudentenBeheer.Models
 
         public Gender? Gender { get; set; }
 
-        public DateTime ? Deleted { get; set; }
+        public DateTime ? Deleted { get; set; } = DateTime.MaxValue;
     }
 
     public class StudentsIndexViewModel

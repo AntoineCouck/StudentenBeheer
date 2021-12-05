@@ -19,7 +19,11 @@ namespace StudentenBeheer.Controllers
         // GET: Modules
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Module.ToListAsync());
+            var module = from m in _context.Module
+                         where m.Deleted > DateTime.Now
+                         select m;
+
+            return View(await module.ToListAsync());
         }
 
         // GET: Modules/Details/5

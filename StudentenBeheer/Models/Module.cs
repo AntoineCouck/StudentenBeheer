@@ -16,6 +16,6 @@ namespace StudentenBeheer.Models
         [Display(Name = "Omschrijving")]
         public string Omschrijving { get; set; }
 
-        public DateTime? Deleted { get; set; }
+        public DateTime? Deleted { get; set; } = DateTime.MaxValue;
     }
 }
