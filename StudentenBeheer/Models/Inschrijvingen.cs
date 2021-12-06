@@ -18,14 +18,17 @@ namespace StudentenBeheer.Models
         public Student? Student { get; set; }
         public int StudentId { get; set; }
 
-        [Required]
+        
         [DataType(DataType.Date)]
+        [Required]
+        
         public DateTime InschrijvingsDatum { get; set; }
-        [Required]
+     
         [DataType(DataType.Date)]
-        public DateTime AfgelegdOp { get; set; }
-        [Required]
-        public string Resultaat { get; set; }
+       
+        public DateTime ? AfgelegdOp { get; set; }
+       
+        public string ? Resultaat { get; set; }
 
 
     }
