@@ -6,7 +6,7 @@ namespace StudentenBeheer.Models
 
     // tussenklasse voor relatie m:m student → module
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class Inschrijvingen
     {
 
