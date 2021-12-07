@@ -11,10 +11,10 @@ namespace StudentenBeheer.Models
         public int Id { get; set; }
         [Required]
         [Display(Name = "Naam")]
-        public string ?  Name { get; set; }
+        public string Name { get; set; }
         [Required]
         [Display(Name = "Omschrijving")]
-        public string ?  Omschrijving { get; set; }
+        public string Omschrijving { get; set; }
 
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
     }
