@@ -11,9 +11,9 @@ namespace StudentenBeheer.Controllers
     [Authorize]
     public class InschrijvingensController : Controller
     {
-        private readonly StudentenBeheerContext _context;
+        private readonly ApplicationContext _context;
 
-        public InschrijvingensController(StudentenBeheerContext context)
+        public InschrijvingensController(ApplicationContext context)
         {
             _context = context;
         }

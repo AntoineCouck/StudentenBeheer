@@ -11,7 +11,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211124132823_add_genders")]
     partial class add_genders
     {

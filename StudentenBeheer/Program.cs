@@ -8,14 +8,21 @@ using StudentenBeheer.Services.GroupSacePrep.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = (builder.Configuration.GetConnectionString("StudentenBeheerContext"));
+var connectionString = (builder.Configuration.GetConnectionString("ApplicationContextConnection"));
+//builder.Services.AddDbContext<global::StudentenBeheer.Data.ApplicationContext>((global::Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options) =>
+//    options.UseSqlServer(connectionString));
 
-builder.Services.AddDbContext<StudentenBeheerContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("StudentenBeheerContext")));
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContextConnection")));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<IdentityContext>(); builder.Services.AddDbContext<IdentityContext>(options =>
-     options.UseSqlServer(connectionString));
+builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>(); 
+
+//builder.Services.AddDbContext<global::StudentenBeheer.Areas.Identity.Data.ApplicationContext>((global::Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options) =>
+// options.UseSqlServer(connectionString));
+
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<IdentityOptions>(options =>
@@ -33,7 +40,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
-    // User settings
+    // ApplicationUser settings
 
     options.User.RequireUniqueEmail = false;
 });
@@ -67,7 +74,8 @@ app.UseStaticFiles();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedDatabase.Initialize(services);
+    var userManager  =services.GetRequiredService<UserManager<ApplicationUser>>();
+    SeedDatabase.Initialize(services , userManager);
 }
 
 // voor de seeder

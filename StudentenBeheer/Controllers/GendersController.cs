@@ -7,9 +7,9 @@ namespace StudentenBeheer.Controllers
 {
     public class GendersController : Controller
     {
-        private readonly StudentenBeheerContext _context;
+        private readonly ApplicationContext _context;
 
-        public GendersController(StudentenBeheerContext context)
+        public GendersController(ApplicationContext context)
         {
             _context = context;
         }

@@ -11,7 +11,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211202191548_add_modules")]
     partial class add_modules
     {

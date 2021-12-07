@@ -11,7 +11,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211205171502_finish_inschrijving")]
     partial class finish_inschrijving
     {

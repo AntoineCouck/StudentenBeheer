@@ -11,7 +11,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211205103809_Add-some-delete")]
     partial class Addsomedelete
     {

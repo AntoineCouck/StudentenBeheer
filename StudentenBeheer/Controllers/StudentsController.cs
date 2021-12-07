@@ -10,9 +10,9 @@ namespace StudentenBeheer.Controllers
     [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
-        private readonly StudentenBeheerContext _context;
+        private readonly ApplicationContext _context;
 
-        public StudentsController(StudentenBeheerContext context)
+        public StudentsController(ApplicationContext context)
         {
             _context = context;
         }

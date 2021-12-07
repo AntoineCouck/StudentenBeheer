@@ -9,14 +9,15 @@ namespace StudentenBeheer.Controllers
     [Authorize(Roles = "Admin")]
     public class ModulesController : Controller
     {
-        private readonly StudentenBeheerContext _context;
+        private readonly ApplicationContext _context;
 
-        public ModulesController(StudentenBeheerContext context)
+        public ModulesController(ApplicationContext context)
         {
             _context = context;
         }
 
         // GET: Modules
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var module = from m in _context.Module

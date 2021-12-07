@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentenBeheer.Areas.Identity.Data;
+using StudentenBeheer.Data;
 
 #nullable disable
 
 namespace StudentenBeheer.Migrations.Identity
 {
-    [DbContext(typeof(IdentityContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211205171541_finish_inschrijving")]
     partial class finish_inschrijving
     {
@@ -161,7 +162,7 @@ namespace StudentenBeheer.Migrations.Identity
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("StudentenBeheer.Areas.Identity.Data.User", b =>
+            modelBuilder.Entity("StudentenBeheer.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -237,7 +238,7 @@ namespace StudentenBeheer.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("StudentenBeheer.Areas.Identity.Data.User", null)
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -246,7 +247,7 @@ namespace StudentenBeheer.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("StudentenBeheer.Areas.Identity.Data.User", null)
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,7 +262,7 @@ namespace StudentenBeheer.Migrations.Identity
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudentenBeheer.Areas.Identity.Data.User", null)
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -270,7 +271,7 @@ namespace StudentenBeheer.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("StudentenBeheer.Areas.Identity.Data.User", null)
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

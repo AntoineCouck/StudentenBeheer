@@ -10,7 +10,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     partial class StudentenBeheerContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

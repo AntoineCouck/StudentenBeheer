@@ -11,7 +11,7 @@ using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Migrations
 {
-    [DbContext(typeof(StudentenBeheerContext))]
+    [DbContext(typeof(ApplicationContext))]
     [Migration("20211123094117_InitialCreate")]
     partial class InitialCreate
     {
