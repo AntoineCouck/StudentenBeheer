@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Data
@@ -7,12 +9,36 @@ namespace StudentenBeheer.Data
     public static class SeedDatabase
     {
 
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider , UserManager<ApplicationUser> userManager )
         {
             using (var context = new ApplicationContext(
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ApplicationContext>>()))
             {
+                ApplicationUser user = null;
+                context.Database.EnsureCreated();
+
+                if (!context.Users.Any())
+                {
+                    user = new ApplicationUser
+                    {
+                        UserName = "Admin",
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Email = "System.administrator@studentenbeheer.be",
+                        EmailConfirmed = true
+                    };
+
+                    userManager.CreateAsync(user , "Abc!98765");
+
+                    context.Roles.AddRange(
+
+                        new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
+                        new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" }
+
+                        );
+                }
+
 
                 if (context.Gender.Any() || context.Student.Any())
                 {
@@ -98,6 +124,16 @@ namespace StudentenBeheer.Data
 
                     context.SaveChanges();
 
+                }
+
+                if(user != null)
+                {
+                    context.UserRoles.AddRange(
+
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Admin" },
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
+
+                        );
                 }
             }
 
