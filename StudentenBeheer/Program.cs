@@ -17,13 +17,13 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContextConnection")));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>(); 
+    .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
 
 //builder.Services.AddDbContext<global::StudentenBeheer.Areas.Identity.Data.ApplicationContext>((global::Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options) =>
 // options.UseSqlServer(connectionString));
 
 
-
+// password settings
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<IdentityOptions>(options =>
@@ -48,6 +48,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 var app = builder.Build();
 
 // password settings
+
+
 builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
 builder.Services.Configure<MailKitOptions>(options =>
 {
@@ -61,6 +63,8 @@ options.SenderName = builder.Configuration["ExternalProviders:MailKit:SMTP:Sende
 // Set it to TRUE to enable ssl or tls, FALSE otherwise
 options.Security = false;  // true zet ssl or tls aan
 });
+
+
 
 
 // Configure the HTTP request pipeline.
@@ -88,6 +92,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+// voor het gebruik van razor pages 
 
 app.MapRazorPages();
 
