@@ -13,20 +13,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
 
-
-
-//builder.Services.AddDbContext<global::StudentenBeheer.Data.ApplicationContext>((global::Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options) =>
-//    options.UseSqlServer(connectionString));
-
-//builder.Services.AddDbContext<ApplicationContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContextConnection")));
-
-
-
-//builder.Services.AddDbContext<global::StudentenBeheer.Areas.Identity.Data.ApplicationContext>((global::Microsoft.EntityFrameworkCore.DbContextOptionsBuilder options) =>
-// options.UseSqlServer(connectionString));
 
 
 // password settings

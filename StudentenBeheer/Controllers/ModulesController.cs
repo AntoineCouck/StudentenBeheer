@@ -16,8 +16,9 @@ namespace StudentenBeheer.Controllers
             _context = context;
         }
 
+
         // GET: Modules
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var module = from m in _context.Module
