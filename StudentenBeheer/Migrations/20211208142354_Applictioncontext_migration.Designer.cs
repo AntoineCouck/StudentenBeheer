@@ -9,11 +9,11 @@ using StudentenBeheer.Data;
 
 #nullable disable
 
-namespace StudentenBeheer.Migrations.Identity
+namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211207205315_migration")]
-    partial class migration
+    [Migration("20211208142354_Applictioncontext_migration")]
+    partial class Applictioncontext_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,11 +180,11 @@ namespace StudentenBeheer.Migrations.Identity
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
