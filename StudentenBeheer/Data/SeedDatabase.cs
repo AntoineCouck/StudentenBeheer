@@ -23,24 +23,29 @@ namespace StudentenBeheer.Data
                     user = new ApplicationUser
                     {
                         UserName = "Admin",
-                        FirstName = "Admin",
-                        LastName = "Admin",
+                        Firstname = "Antoine",
+                        Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
                         EmailConfirmed = true
                     };
 
                     userManager.CreateAsync(user , "Abc!98765");
+                }
 
-                    context.Roles.AddRange(
+                if (!context.Roles.Any()) { 
+
+                context.Roles.AddRange(
 
                         new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
                         new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" }
 
                         );
+
+                    context.SaveChanges();
                 }
 
 
-                if (context.Gender.Any() || context.Student.Any())
+                if (!context.Gender.Any() || !(context.Student.Any()))
                 {
                     // DB has been seeded
                     context.Gender.AddRange(
@@ -97,9 +102,11 @@ namespace StudentenBeheer.Data
                         );
                     context.SaveChanges();
 
+                }
 
-
-                    context.Module.AddRange(
+                    if (!context.Module.Any())
+                    {
+                        context.Module.AddRange(
 
                         new Module
                         {
@@ -122,10 +129,11 @@ namespace StudentenBeheer.Data
 
                         );
 
-                    context.SaveChanges();
+                        context.SaveChanges();
 
-                }
+                    }
 
+                   
                 if(user != null)
                 {
                     context.UserRoles.AddRange(
@@ -134,6 +142,8 @@ namespace StudentenBeheer.Data
                         new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
 
                         );
+
+                    //context.SaveChanges();
                 }
             }
 

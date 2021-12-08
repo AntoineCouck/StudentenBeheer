@@ -73,10 +73,10 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             public string Username { get; set; }
             [Required]
             [Display(Name = "Voornaam")]
-            public string FirstName { get; set; }
+            public string Firstname { get; set; }
             [Required]
             [Display(Name = "Achternaam")]
-            public string LastName { get; set; }
+            public string Lastname { get; set; }
 
             [Required]
             [EmailAddress]
@@ -84,7 +84,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -113,8 +113,8 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
+                user.Firstname = Input.Firstname;
+                user.Lastname = Input.Lastname;
 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

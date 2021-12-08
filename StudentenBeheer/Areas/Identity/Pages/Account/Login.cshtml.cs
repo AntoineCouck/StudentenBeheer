@@ -79,7 +79,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe,  lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("ApplicationUser logged in.");
@@ -91,7 +91,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("ApplicationUser account locked out.");
+                    _logger.LogWarning("ApplicationUser account locked out. , try again later please");
                     return RedirectToPage("./Lockout");
                 }
                 else

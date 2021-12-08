@@ -78,8 +78,8 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                FirstName = user.Firstname,
+                LastName = user.Lastname,
                 PhoneNumber = phoneNumber
             };
         }
@@ -110,10 +110,10 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            if (user.FirstName != Input.FirstName || user.LastName != Input.LastName)
+            if (user.Firstname != Input.FirstName || user.Lastname != Input.LastName)
             {
-            user.FirstName = Input.FirstName;
-            user.LastName = Input.LastName;
+            user.Firstname = Input.FirstName;
+            user.Lastname = Input.LastName;
             _userManager.UpdateAsync(user);
 
             }
