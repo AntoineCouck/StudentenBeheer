@@ -6,9 +6,9 @@ using MimeKit.Text;
 using NETCore.MailKit.Infrastructure.Internal;
 namespace StudentenBeheer.Services
 {
-   
 
-namespace GroupSacePrep.Services
+
+    namespace GroupSacePrep.Services
     {
         public class MailKitEmailSender : IEmailSender
         {

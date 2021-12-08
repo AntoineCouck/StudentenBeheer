@@ -28,16 +28,16 @@ namespace StudentenBeheer.Models
 
         public Gender? Gender { get; set; }
 
-        public DateTime ? Deleted { get; set; } = DateTime.MaxValue;
+        public DateTime? Deleted { get; set; } = DateTime.MaxValue;
     }
 
     public class StudentsIndexViewModel
     {
 
-        public string ? NameFilter { get; set; }
+        public string? NameFilter { get; set; }
         public char GenderFilter { get; set; }
-        public List<Student> ? FilteredStudents { get; set; }
-        public SelectList ? ListGenders { get; set; }
+        public List<Student>? FilteredStudents { get; set; }
+        public SelectList? ListGenders { get; set; }
     }
 
 

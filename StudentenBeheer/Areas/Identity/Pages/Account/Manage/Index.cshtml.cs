@@ -2,14 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentenBeheer.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
 {
@@ -56,7 +53,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-           
+
             [Display(Name = "Voornaam")]
             public string FirstName { get; set; }
 
@@ -112,9 +109,9 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
 
             if (user.Firstname != Input.FirstName || user.Lastname != Input.LastName)
             {
-            user.Firstname = Input.FirstName;
-            user.Lastname = Input.LastName;
-            _userManager.UpdateAsync(user);
+                user.Firstname = Input.FirstName;
+                user.Lastname = Input.LastName;
+                _userManager.UpdateAsync(user);
 
             }
 

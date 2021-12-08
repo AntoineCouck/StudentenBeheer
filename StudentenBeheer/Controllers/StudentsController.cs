@@ -21,7 +21,7 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {
 
-            
+
             var filteredStudents = from m in _context.Student
                                    where m.Deleted > DateTime.Now
                                    select m;

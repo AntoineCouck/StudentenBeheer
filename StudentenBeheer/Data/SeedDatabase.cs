@@ -9,7 +9,7 @@ namespace StudentenBeheer.Data
     public static class SeedDatabase
     {
 
-        public static void Initialize(IServiceProvider serviceProvider , UserManager<ApplicationUser> userManager )
+        public static void Initialize(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager)
         {
             using (var context = new ApplicationContext(
                 serviceProvider.GetRequiredService<
@@ -29,17 +29,18 @@ namespace StudentenBeheer.Data
                         EmailConfirmed = true
                     };
 
-                    userManager.CreateAsync(user , "Abc!98765");
+                    userManager.CreateAsync(user, "Abc!98765");
                 }
 
-                if (!context.Roles.Any()) { 
+                if (!context.Roles.Any())
+                {
 
-                context.Roles.AddRange(
+                    context.Roles.AddRange(
 
-                        new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
-                        new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" }
+                            new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
+                            new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" }
 
-                        );
+                            );
 
                     context.SaveChanges();
                 }
@@ -104,51 +105,53 @@ namespace StudentenBeheer.Data
 
                 }
 
-                    if (!context.Module.Any())
+                if (!context.Module.Any())
+                {
+                    context.Module.AddRange(
+
+                    new Module
                     {
-                        context.Module.AddRange(
+                        Name = "Backend web",
+                        Omschrijving = "Iets met web te maken, denk ik",
+                        Deleted = DateTime.MaxValue
+                    },
+                     new Module
+                     {
+                         Name = "Dynamic web",
+                         Omschrijving = "Iets met web te maken, denk ik maar met een rare taal",
+                         Deleted = DateTime.Now
+                     },
+                      new Module
+                      {
+                          Name = "OS fundamentals",
+                          Omschrijving = "Iets echt raar, precies chinees",
+                          Deleted = DateTime.MaxValue
+                      }
 
-                        new Module
-                        {
-                            Name = "Backend web",
-                            Omschrijving = "Iets met web te maken, denk ik",
-                            Deleted = DateTime.MaxValue
-                        },
-                         new Module
-                         {
-                             Name = "Dynamic web",
-                             Omschrijving = "Iets met web te maken, denk ik maar met een rare taal",
-                             Deleted = DateTime.Now
-                         },
-                          new Module
-                          {
-                              Name = "OS fundamentals",
-                              Omschrijving = "Iets echt raar, precies chinees",
-                              Deleted = DateTime.MaxValue
-                          }
+                    );
 
-                        );
+                    context.SaveChanges();
 
-                        context.SaveChanges();
+                }
 
-                    }
 
-                   
-                if(user != null)
+                if (user != null)
                 {
                     context.UserRoles.AddRange(
 
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Admin" },
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Admin" }
+                        //new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
 
                         );
 
-                    //context.SaveChanges();
+                    context.SaveChanges();
                 }
+
+
             }
 
 
-               
+
         }
     }
 

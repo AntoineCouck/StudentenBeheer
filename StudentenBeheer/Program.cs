@@ -87,8 +87,8 @@ app.UseStaticFiles();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var userManager  =services.GetRequiredService<UserManager<ApplicationUser>>();
-    SeedDatabase.Initialize(services , userManager);
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    SeedDatabase.Initialize(services, userManager);
 }
 
 // voor de seeder
