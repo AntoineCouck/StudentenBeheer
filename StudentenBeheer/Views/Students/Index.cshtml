@@ -10,16 +10,37 @@
     <a asp-action="Create">Create New</a>
 </p>
 <p>
-    <form asp-controller="Students" asp-action="Index" method="get">
+ <form asp-controller="Students" asp-action="Index" method="get">
         <small>Search Name or lastname </small> <input type="text" name="nameFilter"/>
-        &nbsp;
-         <small>Group:</small> 
-         <select name="genderfilter" asp-items="@ViewBag.genderId">
-            <option value="">All</option>
-        </select>
-        &nbsp;
-        <input type="submit" value="Filter" />
+         
+   @*        <div class="input-field col s12">
+    <select  name="genderfilter" asp-items="@ViewBag.genderId">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="">All</option>
+    </select>
+    
+  </div>*@
+        
+  <button class="waves-effect waves-light btn-small" type="submit" name="action">Submit
+    
+  </button>
     </form>
+
+<form asp-controller="Students" asp-action="Index" method="get"> 
+   <div class="input-field col s3">
+          
+    <small>Gender:</small> 
+    <select  name="genderfilter" asp-items="@ViewBag.genderId" class="">
+       <option value="" disabled="disabled" selected="selected">Choose your option</option>
+      <option value="">All</option>
+    </select>
+      </div>    
+      
+  <button class="waves-effect waves-light btn-small" type="submit" name="action">
+      Search gender
+  </button>
+</form>
+
 </p>
 <table class="table">
     <thead>
@@ -64,3 +85,10 @@
 }
     </tbody>
 </table>
+<script defer>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+});
+</script>
