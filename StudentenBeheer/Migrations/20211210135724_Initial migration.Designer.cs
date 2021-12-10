@@ -12,8 +12,8 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211208142354_Applictioncontext_migration")]
-    partial class Applictioncontext_migration
+    [Migration("20211210135724_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -257,7 +257,7 @@ namespace StudentenBeheer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("AfgelegdOp")
+                    b.Property<DateTime?>("AfgelegdOp")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("InschrijvingsDatum")
@@ -267,7 +267,6 @@ namespace StudentenBeheer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Resultaat")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentId")

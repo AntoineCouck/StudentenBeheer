@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace StudentenBeheer.Migrations
 {
-    public partial class Applictioncontext_migration : Migration
+    public partial class Initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -214,8 +215,8 @@ namespace StudentenBeheer.Migrations
                     ModuleId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     InschrijvingsDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AfgelegdOp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Resultaat = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AfgelegdOp = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Resultaat = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

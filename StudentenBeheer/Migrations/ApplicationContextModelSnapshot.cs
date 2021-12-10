@@ -255,7 +255,7 @@ namespace StudentenBeheer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("AfgelegdOp")
+                    b.Property<DateTime?>("AfgelegdOp")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("InschrijvingsDatum")
@@ -265,7 +265,6 @@ namespace StudentenBeheer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Resultaat")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentId")

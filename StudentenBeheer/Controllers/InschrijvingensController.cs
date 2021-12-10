@@ -83,7 +83,7 @@ namespace StudentenBeheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ModuleId,StudentId,InschrijvingsDatum,AfgelegdOp,Resultaat")] Inschrijvingen inschrijvingen)
+        public async Task<IActionResult> Create(int? id, int? welke ,[Bind("Id,ModuleId,StudentId,InschrijvingsDatum,AfgelegdOp,Resultaat")] Inschrijvingen inschrijvingen)
         {
             if (ModelState.IsValid)
             {
