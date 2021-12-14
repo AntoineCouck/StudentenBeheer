@@ -54,8 +54,10 @@ namespace StudentenBeheer.Data
 
                     context.Roles.AddRange(
 
-                            new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
-                            new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" }
+                             //new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" },
+                            new IdentityRole { Id = "Beheerder", Name = "Beheerder", NormalizedName = "beheerder" },
+                            new IdentityRole { Id = "Docent", Name = "Docent", NormalizedName = "docent" },
+                            new IdentityRole { Id = "Student" , Name = "Student" , NormalizedName = "student"}
 
                             );
 
@@ -156,7 +158,7 @@ namespace StudentenBeheer.Data
                 {
                     context.UserRoles.AddRange(
 
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Admin" }
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" }
                         //new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
 
                         );

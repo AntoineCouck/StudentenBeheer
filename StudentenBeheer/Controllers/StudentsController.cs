@@ -7,7 +7,7 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Beheerder")]
     public class StudentsController : Controller
     {
         private readonly ApplicationContext _context;

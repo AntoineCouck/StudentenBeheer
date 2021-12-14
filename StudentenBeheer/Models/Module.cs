@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace StudentenBeheer.Models
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Beheerder")]
     public class Module
     {
 

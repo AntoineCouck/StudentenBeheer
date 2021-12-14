@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentenBeheer.Models
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Beheerder")]
     public class Student
     {
 
