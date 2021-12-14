@@ -1,103 +1,91 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
-namespace StudentenBeheer.Controllers
+namespace StudentenBeheer
 {
-    [Authorize]
-    public class ModulesController : Controller
+    public class LanguagesController : Controller
     {
         private readonly ApplicationContext _context;
 
-        public ModulesController(ApplicationContext context)
+        public LanguagesController(ApplicationContext context)
         {
             _context = context;
         }
 
 
-        // GET: Modules
 
+        // GET: Languages
         public async Task<IActionResult> Index()
         {
-            var module = from m in _context.Module
-                         where m.Deleted > DateTime.Now
-                         select m;
-
-            return View(await module.ToListAsync());
+            return View(await _context.Language.ToListAsync());
         }
 
-        [Authorize(Roles = "Admin")]
-        // GET: Modules/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Languages/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @module = await _context.Module
+            var language = await _context.Language
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (@module == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(@module);
+            return View(language);
         }
 
-        // GET: Modules/Create
-
-        [Authorize(Roles = "Admin")]
+        // GET: Languages/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Modules/Create
+        // POST: Languages/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Omschrijving")] Module @module)
+        public async Task<IActionResult> Create([Bind("Id,Name,Cultures,IsSystemLanguage")] Language language)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@module);
+                _context.Add(language);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@module);
+            return View(language);
         }
 
-        // GET: Modules/Edit/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Languages/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @module = await _context.Module.FindAsync(id);
-            if (@module == null)
+            var language = await _context.Language.FindAsync(id);
+            if (language == null)
             {
                 return NotFound();
             }
-            return View(@module);
+            return View(language);
         }
 
-        // POST: Modules/Edit/5
+        // POST: Languages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Omschrijving")] Module @module)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Cultures,IsSystemLanguage")] Language language)
         {
-            if (id != @module.Id)
+            if (id != language.Id)
             {
                 return NotFound();
             }
@@ -106,12 +94,12 @@ namespace StudentenBeheer.Controllers
             {
                 try
                 {
-                    _context.Update(@module);
+                    _context.Update(language);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModuleExists(@module.Id))
+                    if (!LanguageExists(language.Id))
                     {
                         return NotFound();
                     }
@@ -122,43 +110,41 @@ namespace StudentenBeheer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@module);
+            return View(language);
         }
 
-        // GET: Modules/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Languages/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @module = await _context.Module
+            var language = await _context.Language
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (@module == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(@module);
+            return View(language);
         }
 
-        // POST: Modules/Delete/5
+        // POST: Languages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var @module = await _context.Module.FindAsync(id);
-            module.Deleted = DateTime.Now;
+            var language = await _context.Language.FindAsync(id);
+            _context.Language.Remove(language);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ModuleExists(int id)
+        private bool LanguageExists(string id)
         {
-            return _context.Module.Any(e => e.Id == id);
+            return _context.Language.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using StudentenBeheer.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentenBeheer.Areas.Identity.Data;
 
@@ -7,5 +9,10 @@ public class ApplicationUser : IdentityUser
 {
     public string Firstname { get; set; }
     public string Lastname { get; set; }
+
+    [ForeignKey("Language")]
+    public string LanguageId { get; set; }
+
+    public Language? Language { get; set; }
 }
 

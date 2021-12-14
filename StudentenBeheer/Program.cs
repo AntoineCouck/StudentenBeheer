@@ -4,9 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using NETCore.MailKit.Infrastructure.Internal;
 using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
+using StudentenBeheer.Models;
 using StudentenBeheer.Services.GroupSacePrep.Services;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 var connectionString = (builder.Configuration.GetConnectionString("ApplicationContextConnection"));
 builder.Services.AddDbContext<ApplicationContext>(options =>
@@ -16,6 +21,26 @@ builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) =
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
 
+
+// localisation
+
+
+builder.Services.AddMvc()
+.AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization();
+
+
+
+builder.Services.Configure<RequestLocalizationOptions>(option =>
+{
+    option.SetDefaultCulture("nl-BE")
+    .AddSupportedCultures(Language.SupportedLanguages)
+    .AddSupportedUICultures(Language.SupportedLanguages);
+});
+
+// localisation
+
+builder.Services.AddControllersWithViews();
 
 
 // password settings
@@ -81,10 +106,19 @@ using (var scope = app.Services.CreateScope())
 }
 
 // voor de seeder
+// voor localization
 
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture("nl-BE")
+.AddSupportedCultures(Language.SupportedLanguages)
+.AddSupportedUICultures(Language.SupportedLanguages); app.UseRequestLocalization(localizationOptions);
+
+// voor localization-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+
 
 app.MapControllerRoute(
     name: "default",
