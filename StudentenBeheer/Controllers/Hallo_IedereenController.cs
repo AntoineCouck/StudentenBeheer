@@ -1,9 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Controllers
 {
-    public class Hallo_IedereenController : Controller
+    public class Hallo_IedereenController : ApplicationController
     {
+
+        public Hallo_IedereenController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        {
+            //
+        }
+
         public string Index()
         {
             return "Dit is de standaard pagina om iedereen welkom te heten";

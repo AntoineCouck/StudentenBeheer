@@ -3,17 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
+
 namespace StudentenBeheer
 {
     public class LanguagesController : Controller
     {
         private readonly ApplicationContext _context;
 
-        public LanguagesController(ApplicationContext context)
+        public LanguagesController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
             _context = context;
         }
-
 
 
         // GET: Languages

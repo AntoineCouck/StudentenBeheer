@@ -9,13 +9,13 @@ namespace StudentenBeheer.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class InschrijvingensController : Controller
+    public class InschrijvingensController : ApplicationController
     {
         private readonly ApplicationContext _context;
 
-        public InschrijvingensController(ApplicationContext context)
-        {
-            _context = context;
+        public InschrijvingensController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+         {
+           _context = context;
         }
 
         // GET: Inschrijvingens

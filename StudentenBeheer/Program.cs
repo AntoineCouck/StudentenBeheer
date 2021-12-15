@@ -80,6 +80,11 @@ builder.Services.Configure<MailKitOptions>(options =>
     options.Security = false;  // true zet ssl or tls aan
 });
 
+
+// voor apparte een algemene controller te gebruiken 
+
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 
