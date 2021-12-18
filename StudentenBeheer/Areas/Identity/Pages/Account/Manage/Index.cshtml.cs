@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
+using StudentenBeheer.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
@@ -87,6 +88,8 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
                 LanguageId = user.LanguageId
             };
+            ViewData["Languages"] = Language.SystemLanguages;
+            ViewData["LanguageId"] = user.LanguageId;
         }
 
         public async Task<IActionResult> OnGetAsync()

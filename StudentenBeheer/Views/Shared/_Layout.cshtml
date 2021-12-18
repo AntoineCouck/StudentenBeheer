@@ -39,7 +39,10 @@
                         </li>
                     </ul>
                         <partial name="_LoginPartial" />
-                        <partial name="_LanguagePartial" />
+                              @if (!User.Identity.IsAuthenticated)
+                    {
+                    <partial name="_LanguagePartial" />
+                    }
                 </div>
             </div>
         </nav>
