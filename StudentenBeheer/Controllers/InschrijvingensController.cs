@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
@@ -12,11 +13,14 @@ namespace StudentenBeheer.Controllers
     public class InschrijvingensController : ApplicationController
     {
         private readonly ApplicationContext _context;
+        private readonly IStringLocalizer<InschrijvingensController> _localizer;
+
 
         public InschrijvingensController(ApplicationContext context ,
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger):base(context , httpContextAccessor , logger)
+                                        ILogger<ApplicationController> logger , IStringLocalizer<InschrijvingensController> localizer) :base(context , httpContextAccessor , logger)
         {
+            _localizer = localizer;
         }
 
         // GET: Inschrijvingens

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
@@ -10,11 +11,14 @@ namespace StudentenBeheer.Controllers
     [Authorize(Roles = "Beheerder")]
     public class StudentsController : ApplicationController
     {
+        private readonly IStringLocalizer<StudentsController> _localizer;
+
 
         public StudentsController(ApplicationContext context ,
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger) :base(context, httpContextAccessor, logger)
+                                        ILogger<ApplicationController> logger , IStringLocalizer<StudentsController> localizer) :base(context, httpContextAccessor, logger)
         {
+            _localizer = localizer;
         }
 
 

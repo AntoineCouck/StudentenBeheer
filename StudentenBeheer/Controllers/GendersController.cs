@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
@@ -7,10 +8,12 @@ namespace StudentenBeheer.Controllers
 {
     public class GendersController : ApplicationController
     {
+        private readonly IStringLocalizer<GendersController> _localizer;
 
-        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger) : base(context, httpContextAccessor , logger)
+        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger , IStringLocalizer<GendersController> localizer) : base(context, httpContextAccessor , logger)
 
         {
+            _localizer = localizer;
         }
 
       

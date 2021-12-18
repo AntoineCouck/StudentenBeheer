@@ -22,7 +22,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) =
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
 
+builder.Services.AddMvc()
+       .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+       .AddDataAnnotationsLocalization();
 
+
+builder.Services.AddLocalization(option => option.ResourcesPath = "Localizing");
 
 
 
@@ -95,7 +100,20 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-// voor de seeder 
+//// voor de seeder 
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+//    SeedDatabase.Initialize(services, userManager);
+//}
+
+//// voor de seeder
+
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -104,13 +122,11 @@ using (var scope = app.Services.CreateScope())
     SeedDatabase.Initialize(services, userManager);
 }
 
-// voor de seeder
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture("nl-BE")
+     .AddSupportedCultures(Language.SupportedLanguages)
+     .AddSupportedUICultures(Language.SupportedLanguages);
 
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
-
-
+app.UseRequestLocalization(localizationOptions);
 
 
 
@@ -122,6 +138,12 @@ app.MapControllerRoute(
 // voor het gebruik van razor pages 
 
 app.MapRazorPages();
+
+// for app controller 
+
 app.UseMiddleware<SessionUser>();
+
+// for app controller 
+
 
 app.Run();

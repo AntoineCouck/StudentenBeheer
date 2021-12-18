@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
@@ -9,11 +10,13 @@ namespace StudentenBeheer.Controllers
     public class HomeController : ApplicationController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
         public HomeController(ApplicationContext context,
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger):base(context , httpContextAccessor, logger)
+                                        ILogger<ApplicationController> logger , IStringLocalizer<HomeController> localizer) :base(context , httpContextAccessor, logger)
         {
+            _localizer = localizer;
         }
 
         public IActionResult Index()

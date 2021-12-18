@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
@@ -9,13 +10,14 @@ namespace StudentenBeheer.Controllers
     [Authorize]
     public class ModulesController : ApplicationController
     {
-     
+
+        private readonly IStringLocalizer<ModulesController> _localizer;
 
         public ModulesController(ApplicationContext context , 
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger) : base(context, httpContextAccessor, logger)
+                                        ILogger<ApplicationController> logger , IStringLocalizer<ModulesController> localizer) : base(context, httpContextAccessor, logger)
         {
-            
+            _localizer = localizer;
         }
 
 

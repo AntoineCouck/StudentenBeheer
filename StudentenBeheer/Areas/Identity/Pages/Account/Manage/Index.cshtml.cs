@@ -3,9 +3,11 @@
 #nullable disable
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentenBeheer.Areas.Identity.Data;
+using StudentenBeheer.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
@@ -14,13 +16,15 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+          private readonly ApplicationContext _dbContext;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, ApplicationContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -64,6 +68,9 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            [Display(Name = "Taal")]
+            public string LanguageId { get; set; }
+
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -77,13 +84,16 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
             {
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                LanguageId = user.LanguageId
             };
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            //            var user = await _userManager.GetUserAsync(User);
+            ApplicationUser user = _dbContext.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -107,12 +117,23 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            if (user.Firstname != Input.FirstName || user.Lastname != Input.LastName)
+            if (user.Firstname != Input.FirstName
+                || user.Lastname != Input.LastName
+                || user.LanguageId != Input.LanguageId)
             {
                 user.Firstname = Input.FirstName;
                 user.Lastname = Input.LastName;
-                _userManager.UpdateAsync(user);
 
+                user.Language = _dbContext.Language.FirstOrDefault(l => l.Id == Input.LanguageId);
+                user.LanguageId = Input.LanguageId;
+                _dbContext.Update(user);
+                _dbContext.SaveChanges();
+
+                // Update the language/culture
+                Response.Cookies.Append(
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(Input.LanguageId)),
+                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             }
 
 

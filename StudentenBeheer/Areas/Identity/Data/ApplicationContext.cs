@@ -18,6 +18,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<StudentenBeheer.Models.Inschrijvingen> Inschrijvingen { get; set; }
 
+    public DbSet<StudentenBeheer.Models.Language> Language { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
