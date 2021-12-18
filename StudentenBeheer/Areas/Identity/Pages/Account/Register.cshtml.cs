@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using StudentenBeheer.Areas.Identity.Data;
-using StudentenBeheer.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -24,15 +23,13 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly ApplicationContext _dbContext;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-             IEmailSender emailSender,
-            ApplicationContext dbContext)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -40,7 +37,6 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -84,7 +80,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [Display(Name = "E-mail")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
 
@@ -92,7 +88,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
             [DataType(DataType.Password)]
-            [Display(Name = "Wachtwoord")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             /// <summary>
@@ -100,7 +96,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Bevestig wachtwoord")]
+            [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
@@ -121,8 +117,6 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.Firstname = Input.Firstname;
                 user.Lastname = Input.Lastname;
-                user.LanguageId = Thread.CurrentThread.CurrentCulture.ToString().Substring(0, 2);
-                user.Language = _dbContext.Language.FirstOrDefault(l => l.Id == user.LanguageId); 
 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

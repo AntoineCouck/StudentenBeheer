@@ -4,11 +4,9 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentenBeheer.Areas.Identity.Data;
-using StudentenBeheer.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentenBeheer.Areas.Identity.Pages.Account
@@ -17,12 +15,11 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly ApplicationContext _dbContext;
-             public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, ApplicationContext dbContext)
+
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
-            _dbContext = dbContext;
         }
 
 
@@ -86,11 +83,6 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("ApplicationUser logged in.");
-                    string languageId = _dbContext.Users.FirstOrDefault(u => u.UserName == Input.Username).LanguageId;
-                    Response.Cookies.Append(
-                        CookieRequestCultureProvider.DefaultCookieName,
-                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(languageId)),
-                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

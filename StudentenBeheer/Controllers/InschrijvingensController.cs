@@ -13,8 +13,8 @@ namespace StudentenBeheer.Controllers
     {
         private readonly ApplicationContext _context;
 
-        public InschrijvingensController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger) : base(context, httpContextAccessor, logger)
-        {
+        public InschrijvingensController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+         {
            _context = context;
         }
 

@@ -1,50 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using Microsoft.AspNetCore.Localization;
-using StudentenBeheer.Controllers;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
-using StudentenBeheer.Areas.Identity.Data;
 
-namespace GroupSpace.Controllers
+
+namespace StudentenBeheer
 {
-    public class LanguagesController : ApplicationController
+    public class LanguagesController : Controller
     {
+        private readonly ApplicationContext _context;
 
-        public LanguagesController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
-            : base(context, httpContextAccessor, logger)
+        public LanguagesController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
-        }
-
-        public IActionResult ChangeLanguage(string id, string returnUrl)
-        {
-            string culture = Thread.CurrentThread.CurrentCulture.ToString();
-            culture = id + culture.Substring(2);  // bv. als de cookie "en-US" bevat, en Nederlands wordt gekozen: --> "nl-US"
-
-            if (culture.Length != 5) culture = id;
-
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
-
-            if (_user.Id != "-")
-            {
-                _user.LanguageId = id;
-                Language language = _context.Language.FirstOrDefault(l => l.Id == id);
-                _user.Language = language;
-                ApplicationUser user = _context.Users.FirstOrDefault(u => u.Id == _user.Id);
-                user.Language = language;
-                _context.SaveChanges();
-            }
-
-            return LocalRedirect(returnUrl);
+            _context = context;
         }
 
 
