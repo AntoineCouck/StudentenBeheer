@@ -11,15 +11,11 @@ namespace StudentenBeheer.Controllers
     public class StudentsController : ApplicationController
     {
         private readonly ApplicationContext _context;
-<<<<<<< HEAD
         public StudentsController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger) :base(context, httpContextAccessor, logger)
-=======
-
-        public StudentsController(ApplicationContext context)
->>>>>>> parent of 9439f98 (Add one général controller)
         {
             _context = context;
         }
+
 
         // GET: Students
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
