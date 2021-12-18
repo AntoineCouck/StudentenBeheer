@@ -26,5 +26,5 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-    public DbSet<StudentenBeheer.Models.Language> Language { get; set; }
+   
 }

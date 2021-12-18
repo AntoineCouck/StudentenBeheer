@@ -6,7 +6,7 @@ namespace StudentenBeheer.Controllers
     public class Hallo_IedereenController : ApplicationController
     {
 
-        public Hallo_IedereenController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public Hallo_IedereenController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger) : base(context, httpContextAccessor , logger)
         {
             //
         }

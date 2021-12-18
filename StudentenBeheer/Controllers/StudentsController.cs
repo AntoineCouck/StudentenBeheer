@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
-namespace StudentenBeheer.ApplicationController
+namespace StudentenBeheer.Controllers
 {
     [Authorize(Roles = "Beheerder")]
-    public class StudentsController : Controller
+    public class StudentsController : ApplicationController
     {
-        private readonly ApplicationContext _context;
 
-        public StudentsController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public StudentsController(ApplicationContext context ,
+                                        IHttpContextAccessor httpContextAccessor,
+                                        ILogger<ApplicationController> logger) :base(context, httpContextAccessor, logger)
         {
-            _context = context;
         }
 
 

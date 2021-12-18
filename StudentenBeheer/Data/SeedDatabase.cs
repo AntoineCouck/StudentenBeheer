@@ -17,18 +17,7 @@ namespace StudentenBeheer.Data
             {
                 context.Database.EnsureCreated();
 
-                if (!context.Language.Any())
-                {
-                    List<Language> languages = new List<Language>()
-                    {
-                        new Language(){Id = "de" , Name = "Deutch" , Cultures= "DE" , IsSystemLanguage = false},
-                        new Language(){Id = "en" , Name = "English" , Cultures= "UK" , IsSystemLanguage = false},
-                        new Language(){Id = "fr" , Name = "français" , Cultures= "BE;FR" , IsSystemLanguage = false},
-                        new Language(){Id = "nl" , Name = "Nederlands" , Cultures= "BE;NL" , IsSystemLanguage = false}
-                    };
-
-                    context.SaveChanges();
-                }
+              
 
 
                 ApplicationUser user = null;
@@ -42,7 +31,7 @@ namespace StudentenBeheer.Data
                         Firstname = "Antoine",
                         Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
-                        LanguageId = "BE-nl",
+                      
                         EmailConfirmed = true
                     };
 
@@ -167,28 +156,7 @@ namespace StudentenBeheer.Data
                 }
 
 
-                // start initialisaties op basis van databank 
-
-                List<string> supportedLanguages = new List<string>();
-                Language.AllLanguages = context.Language.ToList();
-                Language.LanguageDictionary = new Dictionary<string, Language>();
-                Language.Systemlanguages = new List<Language>();
-
-
-
-                supportedLanguages.Add("nl-BE");
-                foreach (Language l in Language.AllLanguages)
-                {
-                    Language.LanguageDictionary[l.Id] = l;
-                    supportedLanguages.Add(l.Id);
-                    string[] even = l.Cultures.Split(";");
-                    foreach (string e in even)
-                    {
-                        supportedLanguages.Add(l.Id + "-" + e);
-                    }
-                }
-                Language.SupportedLanguages = supportedLanguages.ToArray();
-
+              
             }
 
 

@@ -5,6 +5,7 @@ using NETCore.MailKit.Infrastructure.Internal;
 using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
+using StudentenBeheer.Services;
 using StudentenBeheer.Services.GroupSacePrep.Services;
 
 
@@ -22,26 +23,17 @@ builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) =
     .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
 
 
-// localisation
-
-
-builder.Services.AddMvc()
-.AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-.AddDataAnnotationsLocalization();
 
 
 
-builder.Services.Configure<RequestLocalizationOptions>(option =>
-{
-    option.SetDefaultCulture("nl-BE")
-    .AddSupportedCultures(Language.SupportedLanguages)
-    .AddSupportedUICultures(Language.SupportedLanguages);
-});
-
-// localisation
 
 builder.Services.AddControllersWithViews();
 
+// for app controller 
+
+builder.Services.AddHttpContextAccessor();
+
+// for app controller
 
 // password settings
 // Add services to the container.
@@ -81,9 +73,11 @@ builder.Services.Configure<MailKitOptions>(options =>
 });
 
 
-// voor apparte een algemene controller te gebruiken 
+// for app controller 
 
 builder.Services.AddHttpContextAccessor();
+
+// for app controller 
 
 var app = builder.Build();
 
@@ -111,16 +105,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 // voor de seeder
-// voor localization
 
-var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture("nl-BE")
-.AddSupportedCultures(Language.SupportedLanguages)
-.AddSupportedUICultures(Language.SupportedLanguages); app.UseRequestLocalization(localizationOptions);
-
-// voor localization-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 
 
@@ -133,5 +122,6 @@ app.MapControllerRoute(
 // voor het gebruik van razor pages 
 
 app.MapRazorPages();
+app.UseMiddleware<SessionUser>();
 
 app.Run();

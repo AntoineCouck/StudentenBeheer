@@ -7,12 +7,10 @@ namespace StudentenBeheer.Controllers
 {
     public class GendersController : ApplicationController
     {
-        private readonly ApplicationContext _context;
 
-        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
+        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger) : base(context, httpContextAccessor , logger)
 
         {
-            _context = context;
         }
 
       

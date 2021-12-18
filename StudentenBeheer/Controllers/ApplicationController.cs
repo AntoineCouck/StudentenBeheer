@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
+using StudentenBeheer.Services;
 
 namespace StudentenBeheer.Controllers
 {
@@ -9,24 +10,21 @@ namespace StudentenBeheer.Controllers
         protected readonly ApplicationUser _user;
         protected readonly ApplicationContext _context;
         protected readonly IHttpContextAccessor _httpContextAccessor;
+        protected readonly ILogger<ApplicationController> _logger;
 
-
-        public ApplicationController(ApplicationContext context, IHttpContextAccessor httpContextAccessor)
+        protected ApplicationController(ApplicationContext context,
+                                        IHttpContextAccessor httpContextAccessor,
+                                        ILogger<ApplicationController> logger)
         {
             _context = context;
+            _logger = logger;
             _httpContextAccessor = httpContextAccessor;
-            string name = httpContextAccessor.HttpContext.User.Identity.Name;
-           
-            if (string.IsNullOrEmpty(name))
-
-            {
-                name = "-";       // ken de dummy-gebruiker toe
-                _user = _context.Users.FirstOrDefault(u => u.UserName == name);
-
-            }
-                 
+            //string? userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //if (userName == null)
+            //    userName = "-";
+            //_user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+            _user = SessionUser.GetUser(httpContextAccessor.HttpContext);
         }
-
     }
 }
 

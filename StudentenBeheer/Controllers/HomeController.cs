@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentenBeheer.Areas.Identity.Data;
+using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 using System.Diagnostics;
 
-namespace StudentenBeheer.ApplicationController
+namespace StudentenBeheer.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationContext context,
+                                        IHttpContextAccessor httpContextAccessor,
+                                        ILogger<ApplicationController> logger):base(context , httpContextAccessor, logger)
         {
-            _logger = logger;
         }
 
         public IActionResult Index()
         {
+            ApplicationUser user = _user;
             return View();
         }
 
