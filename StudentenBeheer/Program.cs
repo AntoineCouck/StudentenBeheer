@@ -26,22 +26,21 @@ builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) =
 
 
 builder.Services.AddMvc()
-.AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-.AddDataAnnotationsLocalization();
+       .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+       .AddDataAnnotationsLocalization();
 
 
+//builder.Services.Configure<RequestLocalizationOptions>(option =>
+//{
+//    option.SetDefaultCulture("nl-BE")
+//    .AddSupportedCultures(Language.SupportedLanguages)
+//    .AddSupportedUICultures(Language.SupportedLanguages);
+//});
 
-builder.Services.Configure<RequestLocalizationOptions>(option =>
-{
-    option.SetDefaultCulture("nl-BE")
-    .AddSupportedCultures(Language.SupportedLanguages)
-    .AddSupportedUICultures(Language.SupportedLanguages);
-});
-
-// localisation
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddLocalization(option => option.ResourcesPath = "Localizing");
 
 // password settings
 // Add services to the container.
@@ -81,17 +80,12 @@ builder.Services.Configure<MailKitOptions>(options =>
 });
 
 
+
+
+
 // voor apparte een algemene controller te gebruiken 
 
-builder.Services.AddHttpContextAccessor();
-
 var app = builder.Build();
-
-
-
-
-
-
 
 
 // Configure the HTTP request pipeline.
@@ -110,18 +104,23 @@ using (var scope = app.Services.CreateScope())
     SeedDatabase.Initialize(services, userManager);
 }
 
-// voor de seeder
-// voor localization
-
 var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture("nl-BE")
-.AddSupportedCultures(Language.SupportedLanguages)
-.AddSupportedUICultures(Language.SupportedLanguages); app.UseRequestLocalization(localizationOptions);
+     .AddSupportedCultures(Language.SupportedLanguages)
+     .AddSupportedUICultures(Language.SupportedLanguages);
 
-// voor localization-
+app.UseRequestLocalization(localizationOptions);
+
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    SeedDatabase.Initialize(services, userManager);
+}
 
 
 

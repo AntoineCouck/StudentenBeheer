@@ -19,30 +19,32 @@ namespace StudentenBeheer.Data
 
                 if (!context.Language.Any())
                 {
-                    List<Language> languages = new List<Language>()
-                    {
-                        new Language(){Id = "de" , Name = "Deutch" , Cultures= "DE" , IsSystemLanguage = false},
-                        new Language(){Id = "en" , Name = "English" , Cultures= "UK" , IsSystemLanguage = false},
-                        new Language(){Id = "fr" , Name = "français" , Cultures= "BE;FR" , IsSystemLanguage = false},
-                        new Language(){Id = "nl" , Name = "Nederlands" , Cultures= "BE;NL" , IsSystemLanguage = false}
-                    };
-
+                    context.Language.AddRange(
+                        new Language() { Id = "-", Name = "-", Cultures = "-", IsSystemLanguage = false },
+                        new Language() { Id = "de", Name = "Deutsch", Cultures = "DE", IsSystemLanguage = false },
+                        new Language() { Id = "en", Name = "English", Cultures = "UK;US", IsSystemLanguage = true },
+                        new Language() { Id = "es", Name = "Español", Cultures = "ES", IsSystemLanguage = false },
+                        new Language() { Id = "fr", Name = "français", Cultures = "BE;FR", IsSystemLanguage = true },
+                        new Language() { Id = "nl", Name = "Nederlands", Cultures = "BE;NL", IsSystemLanguage = true }
+                    );
                     context.SaveChanges();
                 }
-
 
                 ApplicationUser user = null;
 
 
                 if (!context.Users.Any())
                 {
+                    ApplicationUser dummy = new ApplicationUser { Id = "-", FirstName = "-", Lastname = "-", UserName = "-", Email = "?@?.?", LanguageId = "-" };
+                    context.Users.Add(dummy);
+                    context.SaveChanges();
                     user = new ApplicationUser
                     {
                         UserName = "Admin",
                         Firstname = "Antoine",
                         Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
-                        LanguageId = "BE-nl",
+                        //LanguageId = "BE-nl",
                         EmailConfirmed = true
                     };
 
@@ -54,7 +56,6 @@ namespace StudentenBeheer.Data
 
                     context.Roles.AddRange(
 
-                             //new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" },
                             new IdentityRole { Id = "Beheerder", Name = "Beheerder", NormalizedName = "beheerder" },
                             new IdentityRole { Id = "Docent", Name = "Docent", NormalizedName = "docent" },
                             new IdentityRole { Id = "Student" , Name = "Student" , NormalizedName = "student"}
@@ -166,25 +167,27 @@ namespace StudentenBeheer.Data
                     context.SaveChanges();
                 }
 
-
-                // start initialisaties op basis van databank 
+                // Start initialisatie talen op basis van databank
 
                 List<string> supportedLanguages = new List<string>();
                 Language.AllLanguages = context.Language.ToList();
                 Language.LanguageDictionary = new Dictionary<string, Language>();
-                Language.Systemlanguages = new List<Language>();
-
-
+                Language.SystemLanguages = new List<Language>();
 
                 supportedLanguages.Add("nl-BE");
                 foreach (Language l in Language.AllLanguages)
                 {
-                    Language.LanguageDictionary[l.Id] = l;
-                    supportedLanguages.Add(l.Id);
-                    string[] even = l.Cultures.Split(";");
-                    foreach (string e in even)
+                    if (l.Id != "-")
                     {
-                        supportedLanguages.Add(l.Id + "-" + e);
+                        Language.LanguageDictionary[l.Id] = l;
+                        if (l.IsSystemLanguage)
+                            Language.SystemLanguages.Add(l);
+                        supportedLanguages.Add(l.Id);
+                        string[] even = l.Cultures.Split(";");
+                        foreach (string e in even)
+                        {
+                            supportedLanguages.Add(l.Id + "-" + e);
+                        }
                     }
                 }
                 Language.SupportedLanguages = supportedLanguages.ToArray();
