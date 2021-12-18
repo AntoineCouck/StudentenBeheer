@@ -9,13 +9,19 @@ namespace StudentenBeheer.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class InschrijvingensController : ApplicationController
+    public class InschrijvingensController : Controller
     {
         private readonly ApplicationContext _context;
 
+<<<<<<< HEAD
         public InschrijvingensController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger) : base(context, httpContextAccessor, logger)
         {
            _context = context;
+=======
+        public InschrijvingensController(ApplicationContext context)
+        {
+            _context = context;
+>>>>>>> parent of 9439f98 (Add one général controller)
         }
 
         // GET: Inschrijvingens

@@ -12,17 +12,25 @@ using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 using StudentenBeheer.Areas.Identity.Data;
 
+<<<<<<< HEAD:StudentenBeheer/Controllers/LanguageController.cs
 namespace GroupSpace.Controllers
+=======
+namespace StudentenBeheer
+>>>>>>> parent of 9439f98 (Add one général controller):StudentenBeheer/Controllers/LanguagesController.cs
 {
     public class LanguagesController : ApplicationController
     {
 
+<<<<<<< HEAD:StudentenBeheer/Controllers/LanguageController.cs
         public LanguagesController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
             : base(context, httpContextAccessor, logger)
         {
         }
 
         public IActionResult ChangeLanguage(string id, string returnUrl)
+=======
+        public LanguagesController(ApplicationContext context)
+>>>>>>> parent of 9439f98 (Add one général controller):StudentenBeheer/Controllers/LanguagesController.cs
         {
             string culture = Thread.CurrentThread.CurrentCulture.ToString();
             culture = id + culture.Substring(2);  // bv. als de cookie "en-US" bevat, en Nederlands wordt gekozen: --> "nl-US"
@@ -46,6 +54,7 @@ namespace GroupSpace.Controllers
 
             return LocalRedirect(returnUrl);
         }
+
 
 
         // GET: Languages

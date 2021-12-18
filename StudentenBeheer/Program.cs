@@ -79,6 +79,11 @@ builder.Services.Configure<MailKitOptions>(options =>
     options.Security = false;  // true zet ssl or tls aan
 });
 
+<<<<<<< HEAD
+=======
+var app = builder.Build();
+
+>>>>>>> parent of 9439f98 (Add one général controller)
 
 
 

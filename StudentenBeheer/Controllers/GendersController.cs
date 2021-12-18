@@ -5,17 +5,19 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
-    public class GendersController : ApplicationController
+    public class GendersController : Controller
     {
         private readonly ApplicationContext _context;
 
+<<<<<<< HEAD
         public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger) : base(context, httpContextAccessor, logger)
 
+=======
+        public GendersController(ApplicationContext context)
+>>>>>>> parent of 9439f98 (Add one général controller)
         {
             _context = context;
         }
-
-      
 
         // GET: Genders
         public async Task<IActionResult> Index()
@@ -146,10 +148,6 @@ namespace StudentenBeheer.Controllers
         private bool GenderExists(char id)
         {
             return _context.Gender.Any(e => e.ID == id);
-        }
-
-        public class ApplicationDbContext
-        {
         }
     }
 }

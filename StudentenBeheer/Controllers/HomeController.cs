@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentenBeheer.Models;
 using System.Diagnostics;
 
-namespace StudentenBeheer.ApplicationController
+namespace StudentenBeheer.Controllers
 {
     public class HomeController : Controller
     {
