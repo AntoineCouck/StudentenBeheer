@@ -99,7 +99,7 @@ namespace StudentenBeheer.Controllers
                 GenderFilter = genderFilter,
                 FilteredStudents = await filteredStudents.Include(s => s.Gender).ToListAsync(),
                 ListGenders = new SelectList(await groupsToSelect.ToListAsync(), "ID", "Name", genderFilter)
-
+                
 
             };
 
@@ -229,6 +229,7 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = await _context.Student.FindAsync(id);
+         
             student.Deleted = DateTime.Now;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
