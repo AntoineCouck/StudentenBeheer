@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudentenBeheer.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,6 +30,10 @@ namespace StudentenBeheer.Models
         public Gender? Gender { get; set; }
 
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
+
+        public ApplicationUser ? applicationUser { get; set; }
+
+
     }
 
     public class StudentsIndexViewModel
