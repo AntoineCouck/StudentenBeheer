@@ -10,6 +10,8 @@ namespace StudentenBeheer.Models
     public class Student
     {
 
+
+        [ForeignKey("applicationUser")]
         public int Id { get; set; }
 
         [Required]
@@ -31,7 +33,8 @@ namespace StudentenBeheer.Models
 
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
 
-        public ApplicationUser ? ApplicationUser { get; set; }
+       public virtual ApplicationUser ? applicationUser { get; set; }
+
 
     }
 

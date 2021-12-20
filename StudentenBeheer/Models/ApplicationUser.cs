@@ -13,14 +13,9 @@ public class ApplicationUser : IdentityUser
     [ForeignKey("Language")]
     public string LanguageId { get; set; }
     public Language? Language { get; set; }
-    
 
-    public Student ? student { get; set; }
+    public virtual Student ? Student { get; set; }
   
-    public int ? StudentId { get; set; }
-
-
-
 
 }
 
