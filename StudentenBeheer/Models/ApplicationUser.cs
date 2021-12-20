@@ -14,5 +14,11 @@ public class ApplicationUser : IdentityUser
     public string LanguageId { get; set; }
     public Language? Language { get; set; }
 
+
+    public Student ?  Student { get; set; }
+
+    [ForeignKey("Student")]
+    public int ? StudentId { get; set; }
+
 }
 
