@@ -185,6 +185,7 @@ namespace StudentenBeheer.Data
             {
                 if (l.Id != "-")
                 {
+                        // key not found = ligne en dessous mettre au dessus du if 
                     Language.LanguageDictionary[l.Id] = l;
                     if (l.IsSystemLanguage)
                         Language.SystemLanguages.Add(l);

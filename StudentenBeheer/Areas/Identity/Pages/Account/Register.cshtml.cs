@@ -131,6 +131,13 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
                     _logger.LogInformation("ApplicationUser created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    //add role after create a new user 
+
+                    await _userManager.AddToRoleAsync(user , "Student");
+
+                    //add role after create a new user 
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
