@@ -182,11 +182,15 @@ namespace StudentenBeheer.Data
 
             supportedLanguages.Add("nl-BE");
             foreach (Language l in Language.AllLanguages)
-            {
-                if (l.Id != "-")
-                {
-                        // key not found = ligne en dessous mettre au dessus du if 
+                {  
+                    
+                    // key not found = ligne en dessous mettre au dessus du if 
                     Language.LanguageDictionary[l.Id] = l;
+
+
+                    if (l.Id != "-")
+                {
+                     
                     if (l.IsSystemLanguage)
                         Language.SystemLanguages.Add(l);
                     supportedLanguages.Add(l.Id);

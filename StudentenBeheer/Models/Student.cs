@@ -33,7 +33,7 @@ namespace StudentenBeheer.Models
 
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
 
-       public virtual ApplicationUser ? applicationUser { get; set; }
+       //public virtual ApplicationUser ? applicationUser { get; set; }
 
 
     }
