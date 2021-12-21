@@ -33,6 +33,7 @@ namespace StudentenBeheer.Data
 
 
                 ApplicationUser user = null;
+                ApplicationUser user2 = null;
 
 
                 if (!context.Users.Any())
@@ -43,15 +44,25 @@ namespace StudentenBeheer.Data
 
                     user = new ApplicationUser
                     {
-                        UserName = "Admin",
+                        UserName = "SuperAdmin",
                         Firstname = "Antoine",
                         Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
+                    user2 = new ApplicationUser
+                    {
+                        UserName = "User",
+                        Firstname = "Melvin",
+                        Lastname = "Mars",
+                        Email = "System.User@studentenbeheer.be",
+                        LanguageId = "nl",
+                        EmailConfirmed = true
+                    };
 
                     userManager.CreateAsync(user, "Abc!98765");
+                    userManager.CreateAsync(user2, "Abc!12345");
                 }
 
                 if (!context.Roles.Any())
@@ -59,7 +70,7 @@ namespace StudentenBeheer.Data
 
                     context.Roles.AddRange(
 
-                             //new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "admin" },
+                            new IdentityRole { Id = "SuperBeheerder", Name = "SuperBeheerder", NormalizedName = "admin" },
                             new IdentityRole { Id = "Beheerder", Name = "Beheerder", NormalizedName = "beheerder" },
                             new IdentityRole { Id = "Docent", Name = "Docent", NormalizedName = "docent" },
                             new IdentityRole { Id = "Student" , Name = "Student" , NormalizedName = "student"}
@@ -163,7 +174,7 @@ namespace StudentenBeheer.Data
                 {
                     context.UserRoles.AddRange(
 
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" }
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "SuperBeheerder" }
                         //new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
 
                         );

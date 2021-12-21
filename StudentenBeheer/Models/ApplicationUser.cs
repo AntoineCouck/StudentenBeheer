@@ -30,7 +30,7 @@ public class ApplicationUserViewModel
     public string? PhoneNumber { get; set; }
     public Boolean Lockout { get; set; }
     public Boolean User { get; set; }
-    public Boolean SystemAdministrator { get; set; }
-    public Boolean UserAdministrator { get; set; }
+    public Boolean SuperBeheerder { get; set; }
+    public Boolean Beheerder { get; set; }
 }
 
