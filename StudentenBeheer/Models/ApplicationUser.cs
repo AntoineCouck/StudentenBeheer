@@ -28,9 +28,9 @@ public class ApplicationUserViewModel
     public string Email { get; set; }
     public string Language { get; set; }
     public string? PhoneNumber { get; set; }
-    public Boolean Lockout { get; set; }
-    public Boolean User { get; set; }
-    public Boolean SuperBeheerder { get; set; }
-    public Boolean Beheerder { get; set; }
+    public bool Lockout { get; set; }
+    public bool User { get; set; }
+    public bool SuperBeheerder { get; set; }
+    public bool Beheerder { get; set; }
 }
 

@@ -27,7 +27,7 @@ builder.Services.AddMvc()
        .AddDataAnnotationsLocalization();
 
 
-builder.Services.AddLocalization(option => option.ResourcesPath = "Localizing");
+builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
 
 
 
