@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using StudentenBeheer.Data;
 
 namespace StudentenBeheer.Controllers
@@ -9,7 +8,7 @@ namespace StudentenBeheer.Controllers
         private readonly IStringLocalizer<Hallo_IedereenController> _localizer;
 
 
-        public Hallo_IedereenController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger , IStringLocalizer<Hallo_IedereenController> localizer) : base(context, httpContextAccessor , logger)
+        public Hallo_IedereenController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<Hallo_IedereenController> localizer) : base(context, httpContextAccessor, logger)
         {
             _localizer = localizer;
         }

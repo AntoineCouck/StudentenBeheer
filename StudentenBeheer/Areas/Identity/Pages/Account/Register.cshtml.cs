@@ -31,7 +31,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender , ApplicationContext dbContext)
+            IEmailSender emailSender, ApplicationContext dbContext)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -134,7 +134,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
 
                     //add role after create a new user 
 
-                    await _userManager.AddToRoleAsync(user , "Student");
+                    await _userManager.AddToRoleAsync(user, "Student");
 
                     //add role after create a new user 
 

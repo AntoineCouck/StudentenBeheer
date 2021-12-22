@@ -17,7 +17,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-          private readonly ApplicationContext _dbContext;
+        private readonly ApplicationContext _dbContext;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,

@@ -14,7 +14,7 @@ namespace StudentenBeheer.Controllers
 
         public HomeController(ApplicationContext context,
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger , IStringLocalizer<HomeController> localizer) :base(context , httpContextAccessor, logger)
+                                        ILogger<ApplicationController> logger, IStringLocalizer<HomeController> localizer) : base(context, httpContextAccessor, logger)
         {
             _localizer = localizer;
         }

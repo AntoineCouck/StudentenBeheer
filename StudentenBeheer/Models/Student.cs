@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using StudentenBeheer.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,7 +32,7 @@ namespace StudentenBeheer.Models
 
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
 
-       //public virtual ApplicationUser ? applicationUser { get; set; }
+        //public virtual ApplicationUser ? applicationUser { get; set; }
 
 
     }

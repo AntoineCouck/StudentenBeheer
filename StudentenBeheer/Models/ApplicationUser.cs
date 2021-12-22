@@ -15,7 +15,7 @@ public class ApplicationUser : IdentityUser
     public Language? Language { get; set; }
 
     //public virtual Student ? Student { get; set; }
-  
+
 
 }
 

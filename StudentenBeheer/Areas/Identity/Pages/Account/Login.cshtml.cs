@@ -19,7 +19,7 @@ namespace StudentenBeheer.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly ApplicationContext _dbContext;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger , ApplicationContext context)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, ApplicationContext context)
         {
             _signInManager = signInManager;
             _logger = logger;

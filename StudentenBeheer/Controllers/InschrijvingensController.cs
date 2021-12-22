@@ -16,9 +16,9 @@ namespace StudentenBeheer.Controllers
         private readonly IStringLocalizer<InschrijvingensController> _localizer;
 
 
-        public InschrijvingensController(ApplicationContext context ,
+        public InschrijvingensController(ApplicationContext context,
                                         IHttpContextAccessor httpContextAccessor,
-                                        ILogger<ApplicationController> logger , IStringLocalizer<InschrijvingensController> localizer) :base(context , httpContextAccessor , logger)
+                                        ILogger<ApplicationController> logger, IStringLocalizer<InschrijvingensController> localizer) : base(context, httpContextAccessor, logger)
         {
             _localizer = localizer;
         }

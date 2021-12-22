@@ -28,5 +28,5 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-   
+
 }

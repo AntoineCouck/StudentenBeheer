@@ -10,13 +10,13 @@ namespace StudentenBeheer.Controllers
     {
         private readonly IStringLocalizer<GendersController> _localizer;
 
-        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor , ILogger<ApplicationController> logger , IStringLocalizer<GendersController> localizer) : base(context, httpContextAccessor , logger)
+        public GendersController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<GendersController> localizer) : base(context, httpContextAccessor, logger)
 
         {
             _localizer = localizer;
         }
 
-      
+
 
         // GET: Genders
         public async Task<IActionResult> Index()
