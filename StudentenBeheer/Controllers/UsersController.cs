@@ -42,7 +42,7 @@ namespace StudentenBeheer.Controllers
                     LastName = user.Lastname,
                     Lockout = user.LockoutEnd != null,
                     PhoneNumber = user.PhoneNumber,
-                    SuperBeheerder = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "SuperBeheerder").Count() > 0,
+                    Docent = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "SuperBeheerder").Count() > 0,
                     Student = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "User").Count() > 0,
                     Beheerder = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "Beheerder").Count() > 0
                 });
@@ -81,7 +81,7 @@ namespace StudentenBeheer.Controllers
                 LastName = user.Lastname,
                 Lockout = user.LockoutEnd != null,
                 PhoneNumber = user.PhoneNumber,
-                SuperBeheerder = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "SuperBeheerder").Count() > 0,
+                Docent = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "SuperBeheerder").Count() > 0,
                 Student = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "Student").Count() > 0,
                 Beheerder = _context.UserRoles.Where(ur => ur.UserId == user.Id && ur.RoleId == "Beheerder").Count() > 0
             };
@@ -98,7 +98,7 @@ namespace StudentenBeheer.Controllers
                 _context.Remove(role);
             }
             if (model.Student) _context.Add(new IdentityUserRole<string> { RoleId = "Student", UserId = model.Id });
-            if (model.SuperBeheerder) _context.Add(new IdentityUserRole<string> { RoleId = "SuperBeheerder", UserId = model.Id });
+            if (model.Docent) _context.Add(new IdentityUserRole<string> { RoleId = "SuperBeheerder", UserId = model.Id });
             if (model.Beheerder) _context.Add(new IdentityUserRole<string> { RoleId = "Beheerder", UserId = model.Id });
             await _context.SaveChangesAsync();
             ; return RedirectToAction("Index");
