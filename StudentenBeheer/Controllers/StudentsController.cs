@@ -142,7 +142,7 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Create([Bind("Id,Name,Lastname,Birthday,GenderId")] Student student)
         {
             if (ModelState.IsValid)
-            {
+            {       
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

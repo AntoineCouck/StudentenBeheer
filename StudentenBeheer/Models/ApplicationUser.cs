@@ -29,7 +29,7 @@ public class ApplicationUserViewModel
     public string Language { get; set; }
     public string? PhoneNumber { get; set; }
     public bool Lockout { get; set; }
-    public bool User { get; set; }
+    public bool Student { get; set; }
     public bool SuperBeheerder { get; set; }
     public bool Beheerder { get; set; }
 }
