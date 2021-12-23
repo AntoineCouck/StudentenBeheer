@@ -358,9 +358,14 @@ namespace StudentenBeheer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GenderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Student");
                 });
@@ -454,7 +459,13 @@ namespace StudentenBeheer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Gender");
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

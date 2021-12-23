@@ -9,32 +9,32 @@ namespace StudentenBeheer.Services
         {
             public DateTime LastEntered { get; set; }
             public int Count { get; set; }
-            public ApplicationUser User { get; set; }
+            public ApplicationUser ? User { get; set; }
         }
 
 
         readonly RequestDelegate _next;
-        static Dictionary<string, UserStats> UserDictionary = new Dictionary<string, UserStats>();
+        static Dictionary<string, UserStats> SessionUserDictionary = new Dictionary<string, UserStats>();
 
         public SessionUser(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, ApplicationContext dbContext)
+        public async Task CallSessionUser(HttpContext httpContext, ApplicationContext dbContext)
         {
-            string name = httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name;
+            string SessionUser_name = httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name;
             try
             {
-                UserStats us = UserDictionary[name];
+                UserStats us = SessionUserDictionary[SessionUser_name];
                 us.Count++;
                 us.LastEntered = DateTime.Now;
             }
             catch
             {
-                UserDictionary[name] = new UserStats
+                SessionUserDictionary[SessionUser_name] = new UserStats
                 {
-                    User = dbContext.Users.FirstOrDefault(u => u.UserName == name),
+                    User = dbContext.Users.FirstOrDefault(u => u.UserName == SessionUser_name),
                     Count = 1,
                     LastEntered = DateTime.Now
                 };
@@ -45,7 +45,7 @@ namespace StudentenBeheer.Services
 
         public static ApplicationUser GetUser(HttpContext httpContext)
         {
-            return UserDictionary[httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name].User;
+            return SessionUserDictionary[httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name].User;
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace StudentenBeheer.Migrations
 {
-    public partial class Test : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,29 +86,6 @@ namespace StudentenBeheer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    GenderId = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Student", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Student_Gender_GenderId",
-                        column: x => x.GenderId,
-                        principalTable: "Gender",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -137,35 +115,6 @@ namespace StudentenBeheer.Migrations
                         name: "FK_AspNetUsers_Language_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Language",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inschrijvingen",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ModuleId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    InschrijvingsDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AfgelegdOp = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Resultaat = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inschrijvingen", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inschrijvingen_Module_ModuleId",
-                        column: x => x.ModuleId,
-                        principalTable: "Module",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Inschrijvingen_Student_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Student",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -255,6 +204,64 @@ namespace StudentenBeheer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GenderId = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Student_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Student_Gender_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Gender",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Inschrijvingen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModuleId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    InschrijvingsDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AfgelegdOp = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Resultaat = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inschrijvingen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Inschrijvingen_Module_ModuleId",
+                        column: x => x.ModuleId,
+                        principalTable: "Module",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Inschrijvingen_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -313,6 +320,11 @@ namespace StudentenBeheer.Migrations
                 name: "IX_Student_GenderId",
                 table: "Student",
                 column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_UserId",
+                table: "Student",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -339,19 +351,19 @@ namespace StudentenBeheer.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Module");
 
             migrationBuilder.DropTable(
                 name: "Student");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Gender");
+
+            migrationBuilder.DropTable(
+                name: "Language");
         }
     }
 }

@@ -12,8 +12,8 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211220223344_Test")]
-    partial class Test
+    [Migration("20211223195144_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -360,9 +360,14 @@ namespace StudentenBeheer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GenderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Student");
                 });
@@ -456,7 +461,13 @@ namespace StudentenBeheer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Gender");
+
+                    b.Navigation("user");
                 });
 #pragma warning restore 612, 618
         }

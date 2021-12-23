@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using StudentenBeheer.Areas.Identity.Data;
 using StudentenBeheer.Data;
 using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
-    [Authorize(Roles = "Beheerder")]
+    [Authorize(Roles = "Docent,Beheerder")]
     public class StudentsController : ApplicationController
     {
         private readonly IStringLocalizer<StudentsController> _localizer;
+        private readonly UserManager<ApplicationUser> UserManager;
 
-
-        public StudentsController(ApplicationContext context,
+        public StudentsController(ApplicationContext context, UserManager<ApplicationUser> userManager,
                                         IHttpContextAccessor httpContextAccessor,
                                         ILogger<ApplicationController> logger, IStringLocalizer<StudentsController> localizer) : base(context, httpContextAccessor, logger)
         {
             _localizer = localizer;
+            UserManager = userManager;
+
         }
 
 
@@ -128,6 +132,7 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students/Create
+        [Authorize(Roles = "Beheerder")]
         public IActionResult Create()
         {
             ViewData["GenderId"] = new SelectList(_context.Gender, "ID", "Name");
@@ -139,12 +144,29 @@ namespace StudentenBeheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Beheerder")]
+
         public async Task<IActionResult> Create([Bind("Id,Name,Lastname,Birthday,GenderId")] Student student)
         {
             if (ModelState.IsValid)
+
             {
+                var user = Activator.CreateInstance<ApplicationUser>();
+
+                user.Firstname = student.Name;
+                user.Lastname = student.Lastname;
+                user.UserName = student.Name + "." + student.Lastname;
+                user.Email = student.Name + "." + student.Lastname + "@ehb.be";
+                user.EmailConfirmed = true;
+                await UserManager.CreateAsync(user , student.Name + "." + student.Lastname + "EHB2022");
+
+                student.UserId = user.Id;
                 _context.Add(student);
                 await _context.SaveChangesAsync();
+
+                await UserManager.AddToRoleAsync(user, "Student");
+
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GenderId"] = new SelectList(_context.Gender, "ID", "Name", student.GenderId);
@@ -152,6 +174,8 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "Beheerder")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -173,6 +197,8 @@ namespace StudentenBeheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Beheerder")]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Lastname,Birthday,GenderId")] Student student)
         {
             if (id != student.Id)
@@ -205,6 +231,8 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize(Roles = "Beheerder")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -226,6 +254,8 @@ namespace StudentenBeheer.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Beheerder")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = await _context.Student.FindAsync(id);

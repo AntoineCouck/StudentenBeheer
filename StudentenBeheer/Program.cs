@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddDefaultIdentity<ApplicationUser>((IdentityOptions options) => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<StudentenBeheer.Data.ApplicationContext>();
+    .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddMvc()
        .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
@@ -25,8 +25,6 @@ builder.Services.AddMvc()
 
 
 builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
-
-
 
 
 builder.Services.AddControllersWithViews();
@@ -82,12 +80,6 @@ builder.Services.AddHttpContextAccessor();
 // for app controller 
 
 var app = builder.Build();
-
-
-
-
-
-
 
 
 // Configure the HTTP request pipeline.
