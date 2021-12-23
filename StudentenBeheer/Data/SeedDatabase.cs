@@ -44,7 +44,7 @@ namespace StudentenBeheer.Data
 
                     user = new ApplicationUser
                     {
-                        UserName = "SuperAdmin",
+                        UserName = "Beheerder",
                         Firstname = "Antoine",
                         Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
@@ -169,18 +169,22 @@ namespace StudentenBeheer.Data
                 }
 
 
-                if (user != null)
+                if (user != null && user2 != null)
                 {
                     context.UserRoles.AddRange(
 
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" }
-                        //new IdentityUserRole<string> { UserId = user.Id, RoleId = "User" }
+                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" },
+                        new IdentityUserRole<string> { UserId = user2.Id, RoleId = "Docent" }
+
 
                         );
+               
 
                     context.SaveChanges();
                 }
 
+
+          
 
 
                 // Start initialisatie talen op basis van databank

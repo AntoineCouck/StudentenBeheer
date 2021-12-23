@@ -9,7 +9,7 @@ using StudentenBeheer.Models;
 namespace StudentenBeheer.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Beheerder")]
     public class InschrijvingensController : ApplicationController
     {
         private readonly ApplicationContext _context;
@@ -27,6 +27,13 @@ namespace StudentenBeheer.Controllers
         public async Task<IActionResult> Index()
         {
             var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student);
+
+            var student = _context.Student.Where(s => s.UserId == _user.Id).FirstOrDefault().ToString();
+            var inschrijvingen = _context.Inschrijvingen.Where(i => i.StudentId == int.Parse(student));
+
+
+            ViewData["inschrijving"] = inschrijvingen;
+
             return View(await studentenBeheerContext.ToListAsync());
         }
 

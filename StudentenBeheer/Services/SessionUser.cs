@@ -21,7 +21,7 @@ namespace StudentenBeheer.Services
             _next = next;
         }
 
-        public async Task CallSessionUser(HttpContext httpContext, ApplicationContext dbContext)
+        public async Task Invoke(HttpContext httpContext, ApplicationContext dbContext)
         {
             string SessionUser_name = httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name;
             try

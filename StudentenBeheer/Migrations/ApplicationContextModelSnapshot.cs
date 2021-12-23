@@ -183,7 +183,6 @@ namespace StudentenBeheer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LanguageId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Lastname")
@@ -425,9 +424,7 @@ namespace StudentenBeheer.Migrations
                 {
                     b.HasOne("StudentenBeheer.Models.Language", "Language")
                         .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
                     b.Navigation("Language");
                 });

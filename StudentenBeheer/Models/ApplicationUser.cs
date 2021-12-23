@@ -11,7 +11,7 @@ public class ApplicationUser : IdentityUser
     public string Lastname { get; set; }
 
     [ForeignKey("Language")]
-    public string LanguageId { get; set; }
+    public string ? LanguageId { get; set; }
     public Language? Language { get; set; }
 
 

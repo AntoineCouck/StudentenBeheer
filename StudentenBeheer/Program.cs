@@ -124,15 +124,15 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-// voor het gebruik van razor pages 
 
-app.MapRazorPages();
 
 // for app controller 
 
 app.UseMiddleware<SessionUser>();
 
 // for app controller 
+// voor het gebruik van razor pages 
 
+app.MapRazorPages();
 
 app.Run();

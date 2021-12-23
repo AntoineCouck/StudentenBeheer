@@ -92,7 +92,7 @@ namespace StudentenBeheer.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LanguageId = table.Column<string>(type: "nvarchar(2)", nullable: false),
+                    LanguageId = table.Column<string>(type: "nvarchar(2)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -115,8 +115,7 @@ namespace StudentenBeheer.Migrations
                         name: "FK_AspNetUsers_Language_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Language",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
