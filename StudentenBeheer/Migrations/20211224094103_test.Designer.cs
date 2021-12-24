@@ -12,8 +12,8 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211223195002_test2")]
-    partial class test2
+    [Migration("20211224094103_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -185,7 +185,6 @@ namespace StudentenBeheer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LanguageId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("Lastname")
@@ -427,9 +426,7 @@ namespace StudentenBeheer.Migrations
                 {
                     b.HasOne("StudentenBeheer.Models.Language", "Language")
                         .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId");
 
                     b.Navigation("Language");
                 });

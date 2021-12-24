@@ -12,7 +12,7 @@ namespace StudentenBeheer.Controllers
     [Authorize(Roles = "Beheerder")]
     public class InschrijvingensController : ApplicationController
     {
-        private readonly ApplicationContext _context;
+        //private readonly ApplicationContext _context;
         private readonly IStringLocalizer<InschrijvingensController> _localizer;
 
 
@@ -28,11 +28,10 @@ namespace StudentenBeheer.Controllers
         {
             var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student);
 
-            var student = _context.Student.Where(s => s.UserId == _user.Id).FirstOrDefault().ToString();
-            var inschrijvingen = _context.Inschrijvingen.Where(i => i.StudentId == int.Parse(student));
+         
 
 
-            ViewData["inschrijving"] = inschrijvingen;
+            
 
             return View(await studentenBeheerContext.ToListAsync());
         }
