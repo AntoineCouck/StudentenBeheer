@@ -12,7 +12,7 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211224094103_test")]
+    [Migration("20211224111324_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,6 +239,51 @@ namespace StudentenBeheer.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("StudentenBeheer.Models.Docent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Docent");
+                });
+
             modelBuilder.Entity("StudentenBeheer.Models.Gender", b =>
                 {
                     b.Property<string>("ID")
@@ -429,6 +474,23 @@ namespace StudentenBeheer.Migrations
                         .HasForeignKey("LanguageId");
 
                     b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("StudentenBeheer.Models.Docent", b =>
+                {
+                    b.HasOne("StudentenBeheer.Models.Gender", "Gender_docent")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentenBeheer.Areas.Identity.Data.ApplicationUser", "user_docent")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Gender_docent");
+
+                    b.Navigation("user_docent");
                 });
 
             modelBuilder.Entity("StudentenBeheer.Models.Inschrijvingen", b =>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Areas.Identity.Data;
+using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Data;
 
@@ -27,6 +28,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    public DbSet<StudentenBeheer.Models.Docent> Docent { get; set; }
 
 
 }

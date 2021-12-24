@@ -204,6 +204,37 @@ namespace StudentenBeheer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Docent",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    GenderId = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Docent", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Docent_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Docent_Gender_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Gender",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
@@ -306,6 +337,16 @@ namespace StudentenBeheer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Docent_GenderId",
+                table: "Docent",
+                column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Docent_UserId",
+                table: "Docent",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inschrijvingen_ModuleId",
                 table: "Inschrijvingen",
                 column: "ModuleId");
@@ -342,6 +383,9 @@ namespace StudentenBeheer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Docent");
 
             migrationBuilder.DropTable(
                 name: "Inschrijvingen");

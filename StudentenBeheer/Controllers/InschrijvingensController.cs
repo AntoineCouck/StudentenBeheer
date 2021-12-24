@@ -26,8 +26,12 @@ namespace StudentenBeheer.Controllers
         // GET: Inschrijvingens
         public async Task<IActionResult> Index()
         {
-            var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student);
+            var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student).Where(i => i.Student.Lastname ==_user.Lastname);
 
+            if (!User.IsInRole("Student"))
+            {
+                studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student);
+            }
          
 
 

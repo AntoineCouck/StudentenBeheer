@@ -32,7 +32,7 @@
     </thead>
     <tbody>
 
-@if(!User.IsInRole("Student")){
+
 
 @foreach (var item in Model) {
         <tr>
@@ -57,32 +57,7 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-            }
-        }
-
-        else
-        {
-          
-             <tr>
-            <td>
-              @ViewBag.inschrijving.Name
-            </td>
-            <td>
-              @ViewBag.inschrijving.LastName
-            </td>
-            <td>
-               @ViewBag.inschrijving.InschrijvingsDatum
-            </td>
-            <td>
-              @ViewBag.inschrijving.AfgelegdOp
-            </td>
-            <td>
-             @ViewBag.inschrijving.Resultaat
-            </td>
-        
-        </tr>
             
         }
-
     </tbody>
 </table>
