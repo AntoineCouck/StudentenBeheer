@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -9,7 +8,7 @@ using StudentenBeheer.Models;
 namespace StudentenBeheer.Controllers
 {
 
-    [Authorize(Roles = "Beheerder")]
+
     public class InschrijvingensController : ApplicationController
     {
         //private readonly ApplicationContext _context;
@@ -26,16 +25,26 @@ namespace StudentenBeheer.Controllers
         // GET: Inschrijvingens
         public async Task<IActionResult> Index()
         {
-            var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student).Where(i => i.Student.Lastname ==_user.Lastname);
+            var studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student).Where(i => i.Student.UserId == _user.Id);
 
             if (!User.IsInRole("Student"))
             {
                 studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module).Include(i => i.Student);
             }
-         
+
+            if (User.IsInRole("Docent"))
+            {
+                var Modules = _context.Docenten_modules.Include(m => m.module).Include(m => m.docent)
+                                                       .Where(m => m.docent.UserId == _user.Id)
+                                                       .Select(m => m.module.Id)
+                                                       .ToList();
+
+                studentenBeheerContext = _context.Inschrijvingen.Include(i => i.Module)
+                                                                .Include(i => i.Student)
+                                                                .Where(i => Modules.Contains(i.Module.Id));
+            }
 
 
-            
 
             return View(await studentenBeheerContext.ToListAsync());
         }

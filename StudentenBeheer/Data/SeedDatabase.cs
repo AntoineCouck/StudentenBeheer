@@ -34,6 +34,7 @@ namespace StudentenBeheer.Data
 
                 ApplicationUser user = null;
                 ApplicationUser user2 = null;
+                ApplicationUser Docent = null;
 
 
                 if (!context.Users.Any())
@@ -60,10 +61,23 @@ namespace StudentenBeheer.Data
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
+                    Docent = new ApplicationUser
+                    {
+                        UserName = "Docent",
+                        Firstname = "Test",
+                        Lastname = "Docent",
+                        Email = "System.User@studentenbeheer.be",
+                        LanguageId = "nl",
+                        EmailConfirmed = true
+                    };
+
 
                     userManager.CreateAsync(user, "Abc!98765");
                     userManager.CreateAsync(user2, "Abc!12345");
+                    userManager.CreateAsync(Docent, "Abc!12345");
                 }
+
+
 
                 if (!context.Roles.Any())
                 {
@@ -139,6 +153,27 @@ namespace StudentenBeheer.Data
 
                 }
 
+                if (!context.Docent.Any())
+                {
+                    context.Docent.AddRange(
+
+                        new Docent
+                        {
+                            FirstName = "antoine2",
+                            LastName = "Couck2",
+                            Birthday = DateTime.Now,
+                            GenderId = 'F',
+                            UserId = Docent.Id,
+                            Email = "Docent@docent.be",
+                            DeletedAt = DateTime.MaxValue
+                        }
+
+
+                        );
+                }
+
+
+
                 if (!context.Module.Any())
                 {
                     context.Module.AddRange(
@@ -167,24 +202,37 @@ namespace StudentenBeheer.Data
                     context.SaveChanges();
 
                 }
+                if (!context.Docenten_modules.Any())
+                {
+                    context.Docenten_modules.AddRange(
+
+                        new Docenten_modules
+                        {
+                            ModuleId = 1,
+                            DocentId = 1
+                        }
+
+                        );
+                }
 
 
-                if (user != null && user2 != null)
+
+                if (user != null && user2 != null && Docent != null)
                 {
                     context.UserRoles.AddRange(
 
                         new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" },
-                        new IdentityUserRole<string> { UserId = user2.Id, RoleId = "Docent" }
-
+                        new IdentityUserRole<string> { UserId = user2.Id, RoleId = "Student" },
+                        new IdentityUserRole<string> { UserId = Docent.Id, RoleId = "Docent" }
 
                         );
-               
+
 
                     context.SaveChanges();
                 }
 
 
-          
+
 
 
                 // Start initialisatie talen op basis van databank

@@ -158,7 +158,8 @@ namespace StudentenBeheer.Controllers
                 user.UserName = student.Name + "." + student.Lastname;
                 user.Email = student.Name + "." + student.Lastname + "@ehb.be";
                 user.EmailConfirmed = true;
-                await UserManager.CreateAsync(user , student.Name + "." + student.Lastname + "EHB2022");
+                user.LanguageId = "nl";
+                await UserManager.CreateAsync(user, student.Name + "." + student.Lastname + "EHB2022");
 
                 student.UserId = user.Id;
                 _context.Add(student);

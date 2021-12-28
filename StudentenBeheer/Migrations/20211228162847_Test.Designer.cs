@@ -12,8 +12,8 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211224111324_test")]
-    partial class test
+    [Migration("20211228162847_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,6 +284,29 @@ namespace StudentenBeheer.Migrations
                     b.ToTable("Docent");
                 });
 
+            modelBuilder.Entity("StudentenBeheer.Models.Docenten_modules", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DocentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocentId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Docenten_modules");
+                });
+
             modelBuilder.Entity("StudentenBeheer.Models.Gender", b =>
                 {
                     b.Property<string>("ID")
@@ -491,6 +514,25 @@ namespace StudentenBeheer.Migrations
                     b.Navigation("Gender_docent");
 
                     b.Navigation("user_docent");
+                });
+
+            modelBuilder.Entity("StudentenBeheer.Models.Docenten_modules", b =>
+                {
+                    b.HasOne("StudentenBeheer.Models.Docent", "docent")
+                        .WithMany()
+                        .HasForeignKey("DocentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentenBeheer.Models.Module", "module")
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("docent");
+
+                    b.Navigation("module");
                 });
 
             modelBuilder.Entity("StudentenBeheer.Models.Inschrijvingen", b =>

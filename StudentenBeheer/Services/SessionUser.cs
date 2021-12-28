@@ -9,7 +9,7 @@ namespace StudentenBeheer.Services
         {
             public DateTime LastEntered { get; set; }
             public int Count { get; set; }
-            public ApplicationUser ? User { get; set; }
+            public ApplicationUser? User { get; set; }
         }
 
 

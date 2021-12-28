@@ -34,8 +34,8 @@ namespace StudentenBeheer.Models
         public DateTime? Deleted { get; set; } = DateTime.MaxValue;
 
         [ForeignKey("user")]
-       public string ? UserId { get; set; }
-        public ApplicationUser ? user { get; set; }
+        public string? UserId { get; set; }
+        public ApplicationUser? user { get; set; }
 
 
     }

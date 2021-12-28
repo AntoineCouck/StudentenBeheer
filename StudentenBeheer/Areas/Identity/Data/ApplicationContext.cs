@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Areas.Identity.Data;
-using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Data;
 
@@ -30,6 +29,7 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<StudentenBeheer.Models.Docent> Docent { get; set; }
+    public DbSet<StudentenBeheer.Models.Docenten_modules> Docenten_modules { get; set; }
 
 
 }
