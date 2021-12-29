@@ -7,7 +7,7 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
-
+    [Authorize]
     public class ModulesController : ApplicationController
     {
 
@@ -23,7 +23,7 @@ namespace StudentenBeheer.Controllers
 
         // GET: Modules
 
-        [Authorize(Roles = "Student")]
+      
         public async Task<IActionResult> Index()
         {
             var module = from m in _context.Module
@@ -35,7 +35,7 @@ namespace StudentenBeheer.Controllers
 
         //[Authorize]
         // GET: Modules/Details/5
-        [Authorize(Roles = "Student")]
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,7 +54,7 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Modules/Create
-
+        [Authorize(Roles = "Docent,Beheerder")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +65,7 @@ namespace StudentenBeheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Docent,Beheerder")]
         public async Task<IActionResult> Create([Bind("Id,Name,Omschrijving")] Module @module)
         {
             if (ModelState.IsValid)
@@ -77,6 +78,7 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Modules/Edit/5
+        [Authorize(Roles = "Docent,Beheerder")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,6 +99,7 @@ namespace StudentenBeheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Docent,Beheerder")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Omschrijving")] Module @module)
         {
             if (id != @module.Id)
@@ -128,6 +131,7 @@ namespace StudentenBeheer.Controllers
         }
 
         // GET: Modules/Delete/5
+        [Authorize(Roles = "Docent,Beheerder")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,6 +152,7 @@ namespace StudentenBeheer.Controllers
         // POST: Modules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Docent,Beheerder")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @module = await _context.Module.FindAsync(id);

@@ -1,4 +1,5 @@
 ﻿#nullable disable
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
+    [Authorize(Roles = "Beheerder")]
     public class DocentsController : Controller
     {
         private readonly ApplicationContext _context;

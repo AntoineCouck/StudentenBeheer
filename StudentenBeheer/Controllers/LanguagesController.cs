@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentenBeheer.Areas.Identity.Data;
@@ -7,6 +8,7 @@ using StudentenBeheer.Models;
 
 namespace StudentenBeheer.Controllers
 {
+    [Authorize(Roles = "Beheerder")]
     public class LanguagesController : ApplicationController
     {
         public LanguagesController(ApplicationContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
