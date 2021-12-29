@@ -32,9 +32,9 @@ namespace StudentenBeheer.Data
 
 
 
-                ApplicationUser user = null;
-                ApplicationUser user2 = null;
-                ApplicationUser Docent = null;
+                ApplicationUser Beheerder = null;
+                ApplicationUser Docent1 = null;
+                ApplicationUser Docent2 = null;
 
 
                 if (!context.Users.Any())
@@ -43,38 +43,39 @@ namespace StudentenBeheer.Data
                     context.Users.Add(dummy);
                     context.SaveChanges();
 
-                    user = new ApplicationUser
+                    Beheerder = new ApplicationUser
                     {
-                        UserName = "Beheerder",
+                        UserName = "Beheerder1",
                         Firstname = "Antoine",
                         Lastname = "Couck",
                         Email = "System.administrator@studentenbeheer.be",
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
-                    user2 = new ApplicationUser
+                    Docent1 = new ApplicationUser
                     {
-                        UserName = "User",
+                        UserName = "Docent1",
                         Firstname = "Melvin",
                         Lastname = "Mars",
                         Email = "System.User@studentenbeheer.be",
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
-                    Docent = new ApplicationUser
+                    Docent2 = new ApplicationUser
                     {
-                        UserName = "Docent",
+                        UserName = "Docent2",
                         Firstname = "Test",
-                        Lastname = "Docent",
+                        Lastname = "Docent2",
                         Email = "System.User@studentenbeheer.be",
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
 
 
-                    userManager.CreateAsync(user, "Abc!98765");
-                    userManager.CreateAsync(user2, "Abc!12345");
-                    userManager.CreateAsync(Docent, "Abc!12345");
+
+                    userManager.CreateAsync(Beheerder, "Abc!98765");
+                    userManager.CreateAsync(Docent1, "Abc!12345");
+                    userManager.CreateAsync(Docent2, "Abc!12345");
                 }
 
 
@@ -147,7 +148,27 @@ namespace StudentenBeheer.Data
                                    Deleted = DateTime.Now
 
 
-                               }
+                               },
+                                 new Student
+                                 {
+                                     Name = "Melvin",
+                                     Lastname = "Angeli",
+                                     Birthday = DateTime.Now,
+                                     GenderId = 'F',
+                                     Deleted = DateTime.Now
+
+
+                                 },
+                                   new Student
+                                   {
+                                       Name = "Ine",
+                                       Lastname = "Debast",
+                                       Birthday = DateTime.Now,
+                                       GenderId = 'F',
+                                       Deleted = DateTime.Now
+
+
+                                   }
                         );
                     context.SaveChanges();
 
@@ -157,14 +178,26 @@ namespace StudentenBeheer.Data
                 {
                     context.Docent.AddRange(
 
+                          new Docent
+                          {
+                              FirstName = "Docent1",
+                              LastName = "Docent1",
+                              Birthday = DateTime.Now,
+                              GenderId = 'F',
+                              UserId = Docent1.Id,
+                              Email = "Docent2@docent.be",
+                              DeletedAt = DateTime.MaxValue
+                          },
+
+
                         new Docent
                         {
-                            FirstName = "antoine2",
-                            LastName = "Couck2",
+                            FirstName = "Docent2",
+                            LastName = "Docent2",
                             Birthday = DateTime.Now,
                             GenderId = 'F',
-                            UserId = Docent.Id,
-                            Email = "Docent@docent.be",
+                            UserId = Docent2.Id,
+                            Email = "Docent2@docent.be",
                             DeletedAt = DateTime.MaxValue
                         }
 
@@ -210,20 +243,25 @@ namespace StudentenBeheer.Data
                         {
                             ModuleId = 1,
                             DocentId = 1
-                        }
+                        },
+                           new Docenten_modules
+                           {
+                               ModuleId = 2,
+                               DocentId = 2
+                           }
 
                         );
                 }
 
 
 
-                if (user != null && user2 != null && Docent != null)
+                if (Beheerder != null && Docent1 != null && Docent2 != null)
                 {
                     context.UserRoles.AddRange(
 
-                        new IdentityUserRole<string> { UserId = user.Id, RoleId = "Beheerder" },
-                        new IdentityUserRole<string> { UserId = user2.Id, RoleId = "Student" },
-                        new IdentityUserRole<string> { UserId = Docent.Id, RoleId = "Docent" }
+                        new IdentityUserRole<string> { UserId = Beheerder.Id, RoleId = "Beheerder" },
+                        new IdentityUserRole<string> { UserId = Docent1.Id, RoleId = "Docent" },
+                        new IdentityUserRole<string> { UserId = Docent2.Id, RoleId = "Docent" }
 
                         );
 
