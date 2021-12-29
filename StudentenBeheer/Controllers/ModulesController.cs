@@ -23,7 +23,7 @@ namespace StudentenBeheer.Controllers
 
         // GET: Modules
 
-      
+
         public async Task<IActionResult> Index()
         {
             var module = from m in _context.Module
@@ -35,7 +35,7 @@ namespace StudentenBeheer.Controllers
 
         //[Authorize]
         // GET: Modules/Details/5
-      
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

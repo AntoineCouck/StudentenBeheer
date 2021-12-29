@@ -24,7 +24,7 @@ namespace StudentenBeheer.Controllers
             UserManager = userManager;
 
         }
-     
+
         // GET: Students
         public async Task<IActionResult> Index(string nameFilter, char genderFilter, string orderBy)
         {

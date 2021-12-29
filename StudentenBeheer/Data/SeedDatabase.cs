@@ -34,7 +34,7 @@ namespace StudentenBeheer.Data
 
                 ApplicationUser Beheerder = null;
                 ApplicationUser Docent1 = null;
-                ApplicationUser Docent2 = null;
+                ApplicationUser Student1 = null;
 
 
                 if (!context.Users.Any())
@@ -61,9 +61,9 @@ namespace StudentenBeheer.Data
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
-                    Docent2 = new ApplicationUser
+                    Student1 = new ApplicationUser
                     {
-                        UserName = "Docent2",
+                        UserName = "Student1",
                         Firstname = "Test",
                         Lastname = "Docent2",
                         Email = "System.User@studentenbeheer.be",
@@ -73,9 +73,9 @@ namespace StudentenBeheer.Data
 
 
 
-                    userManager.CreateAsync(Beheerder, "Abc!98765");
+                    userManager.CreateAsync(Beheerder, "Abc!12345");
                     userManager.CreateAsync(Docent1, "Abc!12345");
-                    userManager.CreateAsync(Docent2, "Abc!12345");
+                    userManager.CreateAsync(Student1, "Abc!12345");
                 }
 
 
@@ -135,6 +135,7 @@ namespace StudentenBeheer.Data
                                    Lastname = "Couck",
                                    Birthday = DateTime.Now,
                                    GenderId = 'M',
+                                   UserId = Student1.Id,
                                    Deleted = DateTime.MaxValue
 
 
@@ -185,24 +186,12 @@ namespace StudentenBeheer.Data
                               Birthday = DateTime.Now,
                               GenderId = 'F',
                               UserId = Docent1.Id,
-                              Email = "Docent2@docent.be",
+                              Email = "Docent1@docent.be",
                               DeletedAt = DateTime.MaxValue
-                          },
-
-
-                        new Docent
-                        {
-                            FirstName = "Docent2",
-                            LastName = "Docent2",
-                            Birthday = DateTime.Now,
-                            GenderId = 'F',
-                            UserId = Docent2.Id,
-                            Email = "Docent2@docent.be",
-                            DeletedAt = DateTime.MaxValue
-                        }
-
+                          }
 
                         );
+                    context.SaveChanges();
                 }
 
 
@@ -243,25 +232,21 @@ namespace StudentenBeheer.Data
                         {
                             ModuleId = 1,
                             DocentId = 1
-                        },
-                           new Docenten_modules
-                           {
-                               ModuleId = 2,
-                               DocentId = 2
-                           }
+                        
+                        }
 
                         );
                 }
 
 
 
-                if (Beheerder != null && Docent1 != null && Docent2 != null)
+                if (Beheerder != null && Docent1 != null && Student1 != null)
                 {
                     context.UserRoles.AddRange(
 
                         new IdentityUserRole<string> { UserId = Beheerder.Id, RoleId = "Beheerder" },
                         new IdentityUserRole<string> { UserId = Docent1.Id, RoleId = "Docent" },
-                        new IdentityUserRole<string> { UserId = Docent2.Id, RoleId = "Docent" }
+                        new IdentityUserRole<string> { UserId = Student1.Id, RoleId = "Student" }
 
                         );
 
