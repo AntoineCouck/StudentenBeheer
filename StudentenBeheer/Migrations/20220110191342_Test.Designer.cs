@@ -12,7 +12,7 @@ using StudentenBeheer.Data;
 namespace StudentenBeheer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211229160814_Test")]
+    [Migration("20220110191342_Test")]
     partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

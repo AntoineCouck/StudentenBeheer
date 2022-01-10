@@ -52,6 +52,9 @@ namespace StudentenBeheer.Data
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
+                    userManager.CreateAsync(Beheerder, "Abc!12345");
+                    Thread.Sleep(3000);
+
                     Docent1 = new ApplicationUser
                     {
                         UserName = "Docent1",
@@ -61,6 +64,9 @@ namespace StudentenBeheer.Data
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
+                    userManager.CreateAsync(Docent1, "Abc!12345");
+                    Thread.Sleep(3000);
+
                     Student1 = new ApplicationUser
                     {
                         UserName = "Student1",
@@ -71,11 +77,13 @@ namespace StudentenBeheer.Data
                         EmailConfirmed = true
                     };
 
-
-
-                    userManager.CreateAsync(Beheerder, "Abc!12345");
-                    userManager.CreateAsync(Docent1, "Abc!12345");
                     userManager.CreateAsync(Student1, "Abc!12345");
+                    Thread.Sleep(3000);
+
+
+
+
+
                 }
 
 
@@ -240,7 +248,7 @@ namespace StudentenBeheer.Data
 
 
 
-                if (Beheerder != null && Docent1 != null && Student1 != null)
+                if (Beheerder != null /*&& Docent1 != null && Student1 != null*/)
                 {
                     context.UserRoles.AddRange(
 
