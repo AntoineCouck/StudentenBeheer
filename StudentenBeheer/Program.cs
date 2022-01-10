@@ -89,16 +89,16 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-//// voor de seeder 
+// voor de seeder 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-//    SeedDatabase.Initialize(services, userManager);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    SeedDatabase.Initialize(services, userManager);
+}
 
-//// voor de seeder
+// voor de seeder
 
 app.UseRouting();
 app.UseAuthentication();

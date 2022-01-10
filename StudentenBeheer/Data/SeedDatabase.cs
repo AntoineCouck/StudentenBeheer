@@ -232,7 +232,7 @@ namespace StudentenBeheer.Data
                         {
                             ModuleId = 1,
                             DocentId = 1
-                        
+
                         }
 
                         );
