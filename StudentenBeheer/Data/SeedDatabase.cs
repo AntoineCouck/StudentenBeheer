@@ -33,7 +33,7 @@ namespace StudentenBeheer.Data
 
 
                 ApplicationUser Beheerder = null;
-                ApplicationUser Docent1 = null;
+                ApplicationUser Docent = null;
                 ApplicationUser Student1 = null;
 
 
@@ -55,7 +55,7 @@ namespace StudentenBeheer.Data
                     userManager.CreateAsync(Beheerder, "Abc!12345");
                     Thread.Sleep(3000);
 
-                    Docent1 = new ApplicationUser
+                    Docent = new ApplicationUser
                     {
                         UserName = "Docent1",
                         Firstname = "Melvin",
@@ -64,7 +64,7 @@ namespace StudentenBeheer.Data
                         LanguageId = "nl",
                         EmailConfirmed = true
                     };
-                    userManager.CreateAsync(Docent1, "Abc!12345");
+                    userManager.CreateAsync(Docent, "Abc!12345");
                     Thread.Sleep(3000);
 
                     Student1 = new ApplicationUser
@@ -193,7 +193,7 @@ namespace StudentenBeheer.Data
                               LastName = "Docent1",
                               Birthday = DateTime.Now,
                               GenderId = 'F',
-                              UserId = Docent1.Id,
+                              UserId = Docent.Id,
                               Email = "Docent1@docent.be",
                               DeletedAt = DateTime.MaxValue
                           }
@@ -253,7 +253,7 @@ namespace StudentenBeheer.Data
                     context.UserRoles.AddRange(
 
                         new IdentityUserRole<string> { UserId = Beheerder.Id, RoleId = "Beheerder" },
-                        new IdentityUserRole<string> { UserId = Docent1.Id, RoleId = "Docent" },
+                        new IdentityUserRole<string> { UserId = Docent.Id, RoleId = "Docent" },
                         new IdentityUserRole<string> { UserId = Student1.Id, RoleId = "Student" }
 
                         );
